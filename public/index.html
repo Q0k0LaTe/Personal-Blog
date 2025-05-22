@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Blog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .header p {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        .nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-bar input:focus {
+            border-color: #667eea;
+        }
+        
+        .search-btn {
+            padding: 0.5rem 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #5a6fd8;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .filters select {
+            padding: 0.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Blog Posts */
+        .blog-posts {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .post-meta {
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .post-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+            line-height: 1.3;
+        }
+        
+        .post-excerpt {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .post-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #666;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .tag:hover {
+            background: #e0e0e0;
+        }
+        
+        .post-stats {
+            display: flex;
+            gap: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .post-stats i {
+            margin-right: 0.3rem;
+        }
+        
+        .category-badge {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-section h3 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.2rem;
+        }
+        
+        .popular-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .popular-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .popular-tag:hover {
+            transform: scale(1.05);
+        }
+        
+        .tag-count {
+            background: rgba(255,255,255,0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        
+        /* Single Post Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .close-btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .post-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .post-content h3 {
+            margin: 2rem 0 1rem;
+            color: #333;
+            font-size: 1.3rem;
+        }
+        
+        .post-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .post-content ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .like-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .like-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-bar {
+                max-width: none;
+            }
+            
+            .filters {
+                justify-content: center;
+            }
+            
+            .post-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .post-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        const { useState, useEffect } = React;
+
+        // Blog Post Component
+        function BlogPost({ post, onViewPost }) {
+            const formatDate = (dateString) => {
+                return new Date(dateString).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            };
+
+            return React.createElement('div', {
+                className: 'post-card',
+                onClick: () => onViewPost(post.id)
+            },
+                React.createElement('div', { className: 'post-header' },
+                    React.createElement('div', null,
+                        React.createElement('h2', { className: 'post-title' }, post.title),
+                        React.createElement('div', { className: 'post-meta' },
+                            React.createElement('span', null, `By ${post.author}`),
+                            React.createElement('span', null, formatDate(post.date)),
+                            React.createElement('span', null, post.readTime)
+                        )
+                    ),
+                    React.createElement('div', { className: 'category-badge' }, post.category)
+                ),
+                React.createElement('p', { className: 'post-excerpt' }, post.excerpt),
+                React.createElement('div', { className: 'post-footer' },
+                    React.createElement('div', { className: 'post-tags' },
+                        post.tags.map(tag => 
+                            React.createElement('span', { 
+                                key: tag, 
+                                className: 'tag'
+                            }, `#${tag}`)
+                        )
+                    ),
+                    React.createElement('div', { className: 'post-stats' },
+                        React.createElement('span', null,
+                            React.createElement('i', { className: 'fas fa-heart' }),
+                            post.likes
+                        ),
+                        React.createElement('span', null,
+                            React.createElement('i', { className: 'fas fa-eye' }),
+                            post.views
+                        )
+                    )
+                )
+            );
+        }
+
+        // Single Post Modal
+        function PostModal({ post, onClose, onLike }) {
+            if (!post) return null;
+
+            const formatDate = (dateString) => {
+                return new Date(dateString).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            };
+
+            return React.createElement('div', { 
+                className: 'modal-overlay',
+                onClick: onClose
+            },
+                React.createElement('div', { 
+                    className: 'modal-content',
+                    onClick: (e) => e.stopPropagation()
+                },
+                    React.createElement('button', { 
+                        className: 'close-btn',
+                        onClick: onClose
+                    }, '×'),
+                    React.createElement('div', { className: 'modal-header' },
+                        React.createElement('h1', null, post.title),
+                        React.createElement('div', { className: 'post-meta' },
+                            React.createElement('span', null, `By ${post.author}`),
+                            React.createElement('span', null, formatDate(post.date)),
+                            React.createElement('span', null, post.readTime)
+                        ),
+                        React.createElement('div', { className: 'post-tags' },
+                            post.tags.map(tag => 
+                                React.createElement('span', { 
+                                    key: tag, 
+                                    className: 'tag'
+                                }, `#${tag}`)
+                            )
+                        )
+                    ),
+                    React.createElement('div', { className: 'modal-body' },
+                        React.createElement('div', { 
+                            className: 'post-content',
+                            dangerouslySetInnerHTML: { __html: post.content }
+                        }),
+                        React.createElement('div', { 
+                            style: { marginTop: '2rem', textAlign: 'center' }
+                        },
+                            React.createElement('button', {
+                                className: 'like-btn',
+                                onClick: () => onLike(post.id)
+                            },
+                                React.createElement('i', { className: 'fas fa-heart' }),
+                                `Like (${post.likes})`
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        // Sidebar Component
+        function Sidebar({ categories, popularTags, onCategoryFilter, onTagFilter }) {
+            return React.createElement('div', { className: 'sidebar' },
+                React.createElement('div', { className: 'sidebar-section' },
+                    React.createElement('h3', null, 'Categories'),
+                    React.createElement('div', null,
+                        categories.map(category => 
+                            React.createElement('div', {
+                                key: category,
+                                style: { marginBottom: '0.5rem' }
+                            },
+                                React.createElement('button', {
+                                    onClick: () => onCategoryFilter(category),
+                                    style: {
+                                        background: 'none',
+                                        border: 'none',
+                                        color: '#667eea',
+                                        cursor: 'pointer',
+                                        fontSize: '1rem'
+                                    }
+                                }, category)
+                            )
+                        )
+                    )
+                ),
+                React.createElement('div', { className: 'sidebar-section' },
+                    React.createElement('h3', null, 'Popular Tags'),
+                    React.createElement('div', { className: 'popular-tags' },
+                        popularTags.map(({ tag, count }) => 
+                            React.createElement('div', {
+                                key: tag,
+                                className: 'popular-tag',
+                                onClick: () => onTagFilter(tag)
+                            },
+                                React.createElement('span', null, `#${tag}`),
+                                React.createElement('span', { className: 'tag-count' }, count)
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        // Main App Component
+        function App() {
+            const [posts, setPosts] = useState([]);
+            const [filteredPosts, setFilteredPosts] = useState([]);
+            const [categories, setCategories] = useState([]);
+            const [popularTags, setPopularTags] = useState([]);
+            const [selectedPost, setSelectedPost] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [searchTerm, setSearchTerm] = useState('');
+            const [selectedCategory, setSelectedCategory] = useState('all');
+
+            // Fetch data from API
+            const fetchPosts = async (params = {}) => {
+                try {
+                    setLoading(true);
+                    const queryParams = new URLSearchParams(params);
+                    const response = await fetch(`/api/posts?${queryParams}`);
+                    const data = await response.json();
+                    setFilteredPosts(data);
+                    if (!params.search && !params.category && !params.tag) {
+                        setPosts(data);
+                    }
+                } catch (error) {
+                    console.error('Error fetching posts:', error);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            const fetchCategories = async () => {
+                try {
+                    const response = await fetch('/api/categories');
+                    const data = await response.json();
+                    setCategories(['All', ...data]);
+                } catch (error) {
+                    console.error('Error fetching categories:', error);
+                }
+            };
+
+            const fetchPopularTags = async () => {
+                try {
+                    const response = await fetch('/api/tags');
+                    const data = await response.json();
+                    setPopularTags(data);
+                } catch (error) {
+                    console.error('Error fetching tags:', error);
+                }
+            };
+
+            const fetchSinglePost = async (id) => {
+                try {
+                    const response = await fetch(`/api/posts/${id}`);
+                    const data = await response.json();
+                    setSelectedPost(data);
+                } catch (error) {
+                    console.error('Error fetching post:', error);
+                }
+            };
+
+            const likePost = async (id) => {
+                try {
+                    const response = await fetch(`/api/posts/${id}/like`, {
+                        method: 'POST'
+                    });
+                    const data = await response.json();
+                    
+                    // Update the post in selectedPost
+                    if (selectedPost && selectedPost.id === id) {
+                        setSelectedPost(prev => ({ ...prev, likes: data.likes }));
+                    }
+                    
+                    // Update posts in the list
+                    setFilteredPosts(prev => 
+                        prev.map(post => 
+                            post.id === id ? { ...post, likes: data.likes } : post
+                        )
+                    );
+                } catch (error) {
+                    console.error('Error liking post:', error);
+                }
+            };
+
+            useEffect(() => {
+                fetchPosts();
+                fetchCategories();
+                fetchPopularTags();
+            }, []);
+
+            const handleSearch = () => {
+                const params = {};
+                if (searchTerm) params.search = searchTerm;
+                if (selectedCategory !== 'all') params.category = selectedCategory;
+                fetchPosts(params);
+            };
+
+            const handleCategoryFilter = (category) => {
+                const cat = category.toLowerCase();
+                setSelectedCategory(cat);
+                const params = {};
+                if (cat !== 'all') params.category = cat;
+                if (searchTerm) params.search = searchTerm;
+                fetchPosts(params);
+            };
+
+            const handleTagFilter = (tag) => {
+                fetchPosts({ tag });
+            };
+
+            const handleViewPost = (id) => {
+                fetchSinglePost(id);
+            };
+
+            const handleCloseModal = () => {
+                setSelectedPost(null);
+            };
+
+            return React.createElement('div', null,
+                // Header
+                React.createElement('header', { className: 'header' },
+                    React.createElement('div', { className: 'container' },
+                        React.createElement('h1', null, '📝 Modern Blog'),
+                        React.createElement('p', null, 'Discover amazing articles about technology, design, and development')
+                    )
+                ),
+
+                // Navigation
+                React.createElement('nav', { className: 'nav' },
+                    React.createElement('div', { className: 'container nav-content' },
+                        React.createElement('div', { className: 'search-bar' },
+                            React.createElement('input', {
+                                type: 'text',
+                                placeholder: 'Search articles...',
+                                value: searchTerm,
+                                onChange: (e) => setSearchTerm(e.target.value),
+                                onKeyPress: (e) => e.key === 'Enter' && handleSearch()
+                            }),
+                            React.createElement('button', {
+                                className: 'search-btn',
+                                onClick: handleSearch
+                            },
+                                React.createElement('i', { className: 'fas fa-search' })
+                            )
+                        ),
+                        React.createElement('div', { className: 'filters' },
+                            React.createElement('select', {
+                                value: selectedCategory,
+                                onChange: (e) => handleCategoryFilter(e.target.value)
+                            },
+                                categories.map(category => 
+                                    React.createElement('option', {
+                                        key: category,
+                                        value: category.toLowerCase()
+                                    }, category)
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Main Content
+                React.createElement('div', { className: 'container' },
+                    React.createElement('div', { className: 'main-content' },
+                        // Blog Posts
+                        React.createElement('main', null,
+                            loading ? 
+                                React.createElement('div', { className: 'loading' },
+                                    React.createElement('div', { className: 'spinner' }),
+                                    React.createElement('div', null, 'Loading amazing articles...')
+                                ) :
+                                React.createElement('div', { className: 'blog-posts' },
+                                    filteredPosts.length > 0 ?
+                                        filteredPosts.map(post => 
+                                            React.createElement(BlogPost, {
+                                                key: post.id,
+                                                post: post,
+                                                onViewPost: handleViewPost
+                                            })
+                                        ) :
+                                        React.createElement('div', { 
+                                            style: { textAlign: 'center', padding: '3rem' }
+                                        },
+                                            React.createElement('h2', null, 'No articles found'),
+                                            React.createElement('p', null, 'Try adjusting your search or filters')
+                                        )
+                                )
+                        ),
+
+                        // Sidebar
+                        React.createElement(Sidebar, {
+                            categories: categories.filter(cat => cat !== 'All'),
+                            popularTags: popularTags,
+                            onCategoryFilter: handleCategoryFilter,
+                            onTagFilter: handleTagFilter
+                        })
+                    )
+                ),
+
+                // Post Modal
+                selectedPost && React.createElement(PostModal, {
+                    post: selectedPost,
+                    onClose: handleCloseModal,
+                    onLike: likePost
+                })
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(React.createElement(App), document.getElementById('root'));
+    </script>
+</body>
+</html>
