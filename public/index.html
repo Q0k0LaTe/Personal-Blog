@@ -3,24 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Blog</title>
+    <title>Q0k0LaTes Blog - Terrence Zhuoting Han</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="css/enhanced-header.css" rel="stylesheet">
     <style>
+        :root {
+            /* Light Theme Variables */
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #121212;
+            --text-secondary: #555;
+            --accent-primary: #5D3FD3;
+            --accent-secondary: #2E0854;
+            --accent-tertiary: #9D4EDD;
+            --border-color: rgba(93, 63, 211, 0.1);
+            --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            --header-gradient: linear-gradient(135deg, #5D3FD3 0%, #2E0854 100%);
+            --card-bg: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --nav-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            --tag-bg: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+            --tag-color: #555;
+            --divider-color: #eee;
+            --grid-pattern: rgba(93, 63, 211, 0.03);
+            --theme-transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Variables */
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #121212;
+            --text-primary: #f0f0f0;
+            --text-secondary: #aaa;
+            --accent-primary: #7B5FFF;
+            --accent-secondary: #5D3FD3;
+            --accent-tertiary: #9D4EDD;
+            --border-color: rgba(123, 95, 255, 0.2);
+            --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            --header-gradient: linear-gradient(135deg, #5D3FD3 0%, #2E0854 100%);
+            --card-bg: #1A1A1A;
+            --nav-bg: rgba(18, 18, 18, 0.9);
+            --nav-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            --tag-bg: linear-gradient(135deg, #2a2a2a, #222);
+            --tag-color: #aaa;
+            --divider-color: #333;
+            --grid-pattern: rgba(123, 95, 255, 0.05);
+            --theme-transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: var(--theme-transition);
         }
         
         body {
-            font-family: 'Source Sans Pro', sans-serif;
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
             overflow-x: hidden;
+            background-image: 
+                linear-gradient(var(--grid-pattern) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-pattern) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
         
         .container {
@@ -29,143 +79,44 @@
             padding: 0 20px;
         }
         
-        /* Beautiful Header Styles */
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            color: white;
-            padding: 4rem 0;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-            border-radius: 0 0 50px 50px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 2px,
-                rgba(255,255,255,0.03) 2px,
-                rgba(255,255,255,0.03) 4px
-            );
-            animation: movePattern 20s linear infinite;
-        }
-        
-        @keyframes movePattern {
-            0% { transform: translateX(-50px) translateY(-50px); }
-            100% { transform: translateX(50px) translateY(50px); }
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.8rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: fadeInUp 1s ease-out;
-            letter-spacing: -0.5px;
-        }
-        
-        .header p {
-            font-size: 1.3rem;
-            opacity: 0.95;
-            max-width: 600px;
-            margin: 0 auto;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            animation: fadeInUp 1s ease-out 0.2s both;
-            font-weight: 300;
-        }
-        
-        .header-decoration {
-            position: absolute;
-            width: 100px;
-            height: 100px;
+        /* Theme Switch */
+        .theme-switch-wrapper {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-primary);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .decoration-1 {
-            top: 20%;
-            left: 10%;
-            animation: float 6s ease-in-out infinite;
+        .theme-switch-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
         
-        .decoration-2 {
-            top: 60%;
-            right: 15%;
-            width: 150px;
-            height: 150px;
-            animation: float 8s ease-in-out infinite reverse;
+        .theme-switch {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.5s ease;
         }
         
-        .decoration-3 {
-            bottom: 20%;
-            left: 20%;
-            width: 80px;
-            height: 80px;
-            animation: float 7s ease-in-out infinite;
-        }
-        
-        /* Additional decorative elements */
-        .decoration-4 {
-            top: 30%;
-            right: 30%;
-            width: 60px;
-            height: 60px;
-            animation: float 9s ease-in-out infinite 1s;
-        }
-        
-        .decoration-5 {
-            bottom: 40%;
-            right: 10%;
-            width: 40px;
-            height: 40px;
-            animation: float 5s ease-in-out infinite 0.5s;
-        }
-        
-        .decoration-6 {
-            top: 15%;
-            right: 45%;
-            width: 30px;
-            height: 30px;
-            animation: float 7s ease-in-out infinite 1.5s;
-            background: rgba(255,255,255,0.15);
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .theme-switch.rotate {
+            transform: rotate(360deg);
         }
         
         /* Navigation */
         .nav {
-            background: white;
+            background: var(--nav-bg);
             padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: var(--nav-shadow);
             margin-bottom: 2rem;
             position: sticky;
             top: 0;
@@ -173,12 +124,7 @@
             border-radius: 20px;
             margin: -2rem 20px 2rem 20px;
             transition: all 0.3s ease;
-        }
-        
-        .nav.scrolled {
-            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
         }
         
         .nav-content {
@@ -189,916 +135,523 @@
             gap: 1rem;
         }
         
-        .filters {
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
             display: flex;
-            gap: 1rem;
             align-items: center;
-            margin: 0 auto;
+            gap: 0.5rem;
         }
         
-        .filters select {
-            padding: 0.8rem 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
+        .logo-icon {
+            background: var(--accent-primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
             font-size: 1rem;
-            outline: none;
-            background: #f8f9fa;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
             transition: all 0.3s ease;
-            cursor: pointer;
+            position: relative;
+            padding: 0.5rem 0;
         }
         
-        .filters select:focus {
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
         }
         
-        .filters select:hover {
-            transform: translateY(-2px);
-            border-color: #667eea;
+        .nav-link:hover {
+            color: var(--accent-primary);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: var(--accent-primary);
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
         }
         
         /* Main Content */
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            padding: 2rem 0;
         }
         
         /* Blog Posts */
         .blog-posts {
             display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
+            margin-bottom: 3rem;
         }
         
         .post-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            position: relative;
             overflow: hidden;
-            transform-style: preserve-3d;
-            perspective: 1000px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s ease;
+            border: 1px solid var(--border-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInCards 0.6s forwards;
+            transform: translateY(20px);
+            animation: fadeInPost 0.8s forwards;
         }
         
-        @keyframes fadeInCards {
+        @keyframes fadeInPost {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
         
-        .post-card:nth-child(1) { animation-delay: 0.1s; }
-        .post-card:nth-child(2) { animation-delay: 0.2s; }
-        .post-card:nth-child(3) { animation-delay: 0.3s; }
-        .post-card:nth-child(4) { animation-delay: 0.4s; }
-        .post-card:nth-child(5) { animation-delay: 0.5s; }
-        
-        .post-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-            opacity: 0;
-            transition: all 0.5s ease;
-            z-index: 0;
-        }
-        
         .post-card:hover {
-            transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+            transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            border-color: rgba(102, 126, 234, 0.3);
+            border-color: var(--accent-primary);
         }
         
-        .post-card:hover::before {
-            opacity: 1;
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.5s ease;
         }
         
-        .post-header {
+        .post-card:hover .post-image {
+            transform: scale(1.05);
+        }
+        
+        .post-content {
+            padding: 1.5rem;
+            flex-grow: 1;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
+            flex-direction: column;
         }
         
-        .post-meta {
+        .post-date {
             font-size: 0.9rem;
-            color: #666;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
             display: flex;
-            gap: 1rem;
             align-items: center;
+            gap: 0.5rem;
         }
         
         .post-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-            line-height: 1.3;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
             transition: all 0.3s ease;
         }
         
         .post-card:hover .post-title {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transform: translateX(5px);
+            color: var(--accent-primary);
         }
         
         .post-excerpt {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
-        
-        .post-card:hover .post-excerpt {
-            color: #333;
-        }
-        
-        .post-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-            position: relative;
-            z-index: 1;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
         
         .post-tags {
             display: flex;
-            gap: 0.5rem;
             flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
         
-        .tag {
-            background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
-            padding: 0.4rem 1rem;
+        .post-tag {
+            padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.8rem;
-            color: #666;
-            cursor: pointer;
+            background: var(--tag-bg);
+            color: var(--tag-color);
             transition: all 0.3s ease;
-            position: relative;
+        }
+        
+        .post-card:hover .post-tag {
+            background: var(--accent-primary);
+            color: white;
+        }
+        
+        .post-link {
+            align-self: flex-start;
+            padding: 0.5rem 1rem;
+            background: var(--accent-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .post-link:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(93, 63, 211, 0.3);
+        }
+        
+        /* Featured Post */
+        .featured-post {
+            margin-bottom: 3rem;
+            background: var(--card-bg);
+            border-radius: 20px;
             overflow: hidden;
-        }
-        
-        .tag::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.5s ease;
             opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
+            transform: translateY(20px);
+            animation: fadeInFeatured 1s forwards;
         }
         
-        .tag:hover {
-            color: white;
-            transform: scale(1.05);
-        }
-        
-        .tag:hover::before {
-            opacity: 1;
-        }
-        
-        .post-stats {
-            display: flex;
-            gap: 1rem;
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .post-stats i {
-            margin-right: 0.3rem;
-            transition: all 0.3s ease;
-        }
-        
-        .post-card:hover .post-stats i {
-            transform: scale(1.2);
-            color: #667eea;
-        }
-        
-        .category-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .post-card:hover .category-badge {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        /* Sidebar */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            opacity: 0;
-            transform: translateX(30px);
-            animation: fadeInSidebar 0.8s forwards 0.5s;
-        }
-        
-        @keyframes fadeInSidebar {
+        @keyframes fadeInFeatured {
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateY(0);
             }
         }
         
-        .sidebar-section {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            transition: all 0.3s ease;
+        .featured-post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--accent-primary);
         }
         
-        .sidebar-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-            border-color: rgba(102, 126, 234, 0.2);
+        .featured-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
         }
         
-        .sidebar-section h3 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 1rem;
-            color: #333;
-            font-size: 1.3rem;
+        .featured-image-container {
             position: relative;
-            padding-bottom: 0.5rem;
+            overflow: hidden;
+            height: 100%;
         }
         
-        .sidebar-section h3::after {
-            content: '';
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .featured-post:hover .featured-image {
+            transform: scale(1.05);
+        }
+        
+        .featured-badge {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        
-        .sidebar-section:hover h3::after {
-            width: 100px;
-        }
-        
-        .popular-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .popular-tag {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent-primary);
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 20px;
+            font-weight: 500;
             font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1;
         }
         
-        .popular-tag:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        .tag-count {
-            background: rgba(255,255,255,0.3);
-            padding: 0.2rem 0.5rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-        
-        .popular-tag:hover .tag-count {
-            background: rgba(255,255,255,0.5);
-        }
-        
-        /* About Blog Section */
-        .about-blog {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-            border-radius: 15px;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .about-blog:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
-            transform: translateY(-3px);
-        }
-        
-        .about-blog h4 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 0.8rem;
-            color: #333;
-            font-size: 1.1rem;
-        }
-        
-        .about-blog p {
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.5;
-        }
-        
-        /* Newsletter Section */
-        .newsletter {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .newsletter:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-        
-        .newsletter h4 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-        
-        .newsletter p {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            opacity: 0.9;
-        }
-        
-        .newsletter-form {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .newsletter-input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border: none;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            outline: none;
-        }
-        
-        .newsletter-btn {
-            background: white;
-            color: #667eea;
-            border: none;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .newsletter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Fullscreen Post View */
-        .fullscreen-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .fullscreen-overlay.visible {
-            opacity: 1;
-        }
-        
-        .fullscreen-content {
-            background: white;
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow-y: auto;
-            transform: scale(0.9);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .fullscreen-overlay.visible .fullscreen-content {
-            transform: scale(1);
-            opacity: 1;
-        }
-        
-        .fullscreen-header {
-            padding: 3rem 2rem 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            position: relative;
-        }
-        
-        .fullscreen-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease-out 0.3s both;
-            line-height: 1.2;
-            letter-spacing: -0.5px;
-        }
-        
-        .fullscreen-meta {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-        
-        .fullscreen-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease-out 0.5s both;
-        }
-        
-        .fullscreen-tag {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .fullscreen-tag:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-        
-        .fullscreen-body {
+        .featured-content {
             padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-        }
-        
-        .fullscreen-content-text {
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-        
-        .fullscreen-content-text h3 {
-            font-family: 'Playfair Display', serif;
-            margin: 2rem 0 1rem;
-            color: #333;
-            font-size: 1.5rem;
-        }
-        
-        .fullscreen-content-text p {
-            margin-bottom: 1.5rem;
-        }
-        
-        .fullscreen-content-text ul {
-            margin: 1rem 0 1.5rem;
-            padding-left: 2rem;
-        }
-        
-        .fullscreen-content-text li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .fullscreen-close {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-            backdrop-filter: blur(5px);
         }
         
-        .fullscreen-close:hover {
-            background: rgba(255,255,255,0.4);
-            transform: rotate(90deg);
-        }
-        
-        .fullscreen-actions {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 3rem;
-            padding-bottom: 3rem;
-        }
-        
-        .fullscreen-like {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-        
-        .fullscreen-like:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        }
-        
-        .fullscreen-like i {
-            transition: all 0.3s ease;
-        }
-        
-        .fullscreen-like:hover i {
-            transform: scale(1.2);
-        }
-        
-        .fullscreen-share {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-        
-        .fullscreen-share:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-        
-        .fullscreen-nav {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-            backdrop-filter: blur(5px);
-        }
-        
-        .fullscreen-nav:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-50%) scale(1.1);
-        }
-        
-        .fullscreen-prev {
-            left: 1.5rem;
-        }
-        
-        .fullscreen-next {
-            right: 1.5rem;
-        }
-        
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            width: 0%;
-            z-index: 1001;
-            transition: width 0.1s ease;
-        }
-        
-        /* Author Section */
-        .author-section {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin: 3rem 0;
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .author-section:hover {
-            background: #f0f2f5;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        
-        .author-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .author-section:hover .author-avatar {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .author-info h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-        
-        .author-info p {
-            color: #666;
+        .featured-date {
             font-size: 0.9rem;
-        }
-        
-        /* Related Posts */
-        .related-posts {
-            margin-top: 3rem;
-        }
-        
-        .related-posts h3 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            color: #333;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .related-posts h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 3px;
-        }
-        
-        .related-posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .related-post-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .related-post-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 0;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            transition: all 0.3s ease;
-        }
-        
-        .related-post-card:hover {
-            transform: translateY(-5px) translateX(3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-color: rgba(102, 126, 234, 0.2);
-        }
-        
-        .related-post-card:hover::before {
-            height: 100%;
-        }
-        
-        .related-post-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
+            color: var(--text-secondary);
             margin-bottom: 0.5rem;
-            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .featured-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
             transition: all 0.3s ease;
         }
         
-        .related-post-card:hover .related-post-title {
-            color: #667eea;
-            transform: translateX(5px);
+        .featured-post:hover .featured-title {
+            color: var(--accent-primary);
         }
         
-        .related-post-meta {
+        .featured-excerpt {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .featured-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .featured-tag {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
             font-size: 0.8rem;
-            color: #666;
+            background: var(--tag-bg);
+            color: var(--tag-color);
+            transition: all 0.3s ease;
+        }
+        
+        .featured-post:hover .featured-tag {
+            background: var(--accent-primary);
+            color: white;
+        }
+        
+        .featured-link {
+            align-self: flex-start;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .featured-link:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(93, 63, 211, 0.3);
         }
         
         /* Comments Section */
         .comments-section {
             margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #eee;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
         }
         
-        .comments-section h3 {
-            font-family: 'Playfair Display', serif;
+        .comments-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
             margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            color: #333;
+            color: var(--text-primary);
             position: relative;
-            padding-bottom: 0.5rem;
+            display: inline-block;
         }
         
-        .comments-section h3::after {
+        .comments-title::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -10px;
             left: 0;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 3px;
+            width: 50px;
+            height: 4px;
+            background: var(--accent-primary);
+            transition: width 0.5s ease;
+        }
+        
+        .comments-title:hover::after {
+            width: 100%;
+        }
+        
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(93, 63, 211, 0.1);
+        }
+        
+        .form-control::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-submit:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(93, 63, 211, 0.3);
+        }
+        
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
         
         .comment {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
         
-        .comment:last-child {
-            border-bottom: none;
-        }
-        
-        .comment-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        
-        .comment-content {
-            flex: 1;
+        .comment:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+            border-color: var(--accent-primary);
         }
         
         .comment-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
         
         .comment-author {
-            font-weight: bold;
-            color: #333;
+            font-weight: 500;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .comment-author i {
+            color: var(--accent-primary);
         }
         
         .comment-date {
-            font-size: 0.8rem;
-            color: #999;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
         }
         
-        .comment-text {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.5;
+        .comment-body {
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
         
-        .comment-actions {
+        /* Pagination */
+        .pagination {
             display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
         }
         
-        .comment-action {
-            font-size: 0.8rem;
-            color: #667eea;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .comment-action:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-        
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            font-size: 1.2rem;
-            color: #666;
-        }
-        
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
+        .page-link {
             width: 40px;
             height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .page-link:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(93, 63, 211, 0.3);
         }
         
-        /* Heart Animation */
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.3); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
-            70% { transform: scale(1); }
-        }
-        
-        .heart-beat {
-            animation: heartBeat 1s;
+        .page-link.active {
+            background: var(--accent-primary);
+            color: white;
         }
         
         /* Footer */
         .footer {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--header-gradient);
             color: white;
             padding: 3rem 0;
             margin-top: 3rem;
@@ -1113,13 +666,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 2px,
-                rgba(255,255,255,0.03) 2px,
-                rgba(255,255,255,0.03) 4px
-            );
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.05) 50%, transparent 52%);
+            background-size: 30px 30px;
         }
         
         .footer-content {
@@ -1131,7 +681,7 @@
         }
         
         .footer-section h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Orbitron', sans-serif;
             margin-bottom: 1rem;
             font-size: 1.3rem;
         }
@@ -1187,28 +737,64 @@
             z-index: 2;
         }
         
+        /* Animated Background Elements */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .animated-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            opacity: 0.05;
+            filter: blur(50px);
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation: floatCircle 15s ease-in-out infinite;
+        }
+        
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            bottom: 10%;
+            right: 10%;
+            background: var(--accent-tertiary);
+            animation: floatCircle 20s ease-in-out infinite reverse;
+        }
+        
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            background: var(--accent-secondary);
+            animation: floatCircle 12s ease-in-out infinite 2s;
+        }
+        
+        @keyframes floatCircle {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, 50px); }
+            50% { transform: translate(0, 100px); }
+            75% { transform: translate(-50px, 50px); }
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
-            .header {
-                padding: 3rem 0;
-                border-radius: 0 0 30px 30px;
-            }
-            
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .header p {
-                font-size: 1.1rem;
-            }
-            
             .nav {
                 border-radius: 15px;
                 margin: -1.5rem 10px 2rem 10px;
-            }
-            
-            .main-content {
-                grid-template-columns: 1fr;
             }
             
             .nav-content {
@@ -1216,55 +802,19 @@
                 align-items: stretch;
             }
             
-            .filters {
+            .nav-links {
                 justify-content: center;
             }
             
-            .post-header {
-                flex-direction: column;
-                gap: 0.5rem;
+            .featured-container {
+                grid-template-columns: 1fr;
             }
             
-            .post-footer {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
+            .featured-image-container {
+                height: 250px;
             }
             
-            .fullscreen-title {
-                font-size: 2rem;
-            }
-            
-            .fullscreen-meta {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .fullscreen-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            
-            .fullscreen-prev {
-                left: 0.5rem;
-            }
-            
-            .fullscreen-next {
-                right: 0.5rem;
-            }
-            
-            .fullscreen-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .author-section {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .related-posts-grid {
+            .blog-posts {
                 grid-template-columns: 1fr;
             }
             
@@ -1276,6 +826,13 @@
             .footer-social {
                 justify-content: center;
             }
+            
+            .theme-switch-wrapper {
+                bottom: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+            }
         }
         
         /* Cursor Effects */
@@ -1284,7 +841,7 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: rgba(102, 126, 234, 0.5);
+            background: rgba(93, 63, 211, 0.5);
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
@@ -1299,12 +856,12 @@
             }
             
             .post-card:hover ~ .custom-cursor,
-            .tag:hover ~ .custom-cursor,
-            .popular-tag:hover ~ .custom-cursor,
+            .featured-post:hover ~ .custom-cursor,
+            .nav-link:hover ~ .custom-cursor,
             button:hover ~ .custom-cursor {
                 width: 40px;
                 height: 40px;
-                background: rgba(102, 126, 234, 0.3);
+                background: rgba(93, 63, 211, 0.3);
             }
         }
         
@@ -1319,393 +876,409 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        /* Neon Glow Effects */
+        .neon-glow {
+            text-shadow: 0 0 5px rgba(93, 63, 211, 0.5),
+                         0 0 10px rgba(93, 63, 211, 0.3),
+                         0 0 15px rgba(93, 63, 211, 0.1);
+        }
+        
+        /* Cyberpunk Grid Lines */
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(var(--accent-primary) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent-primary) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
     <div class="custom-cursor"></div>
+    <div class="grid-lines"></div>
+    <div class="animated-bg">
+        <div class="animated-circle circle-1"></div>
+        <div class="animated-circle circle-2"></div>
+        <div class="animated-circle circle-3"></div>
+    </div>
 
+    <script src="js/enhanced-header.js"></script>
     <script>
         const { useState, useEffect, useRef } = React;
 
-        // Blog Post Component
-        function BlogPost({ post, onViewPost, index }) {
-            const formatDate = (dateString) => {
-                return new Date(dateString).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-            };
+        // Theme Context
+        const ThemeContext = React.createContext({
+            theme: 'light',
+            toggleTheme: () => {}
+        });
 
-            return React.createElement('div', {
-                className: 'post-card',
-                onClick: () => onViewPost(post.id),
-                style: {
-                    animationDelay: `${0.1 * index}s`
+        // Theme Provider Component
+        function ThemeProvider({ children }) {
+            const [theme, setTheme] = useState('light');
+            
+            const toggleTheme = () => {
+                const newTheme = theme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            };
+            
+            useEffect(() => {
+                // Check for saved theme preference
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    // Use system preference if no saved preference
+                    setTheme('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
                 }
+            }, []);
+            
+            return (
+                <ThemeContext.Provider value={{ theme, toggleTheme }}>
+                    {children}
+                </ThemeContext.Provider>
+            );
+        }
+
+        // Theme Switch Component
+        function ThemeSwitch() {
+            const { theme, toggleTheme } = React.useContext(ThemeContext);
+            const [rotate, setRotate] = useState(false);
+            
+            const handleClick = () => {
+                setRotate(true);
+                toggleTheme();
+                setTimeout(() => setRotate(false), 500);
+            };
+            
+            return React.createElement('div', {
+                className: 'theme-switch-wrapper',
+                onClick: handleClick
             },
-                React.createElement('div', { className: 'post-header' },
-                    React.createElement('div', null,
-                        React.createElement('h2', { className: 'post-title' }, post.title),
-                        React.createElement('div', { className: 'post-meta' },
-                            React.createElement('span', null,
-                                React.createElement('i', { className: 'fas fa-user' }),
-                                ` ${post.author}`
-                            ),
-                            React.createElement('span', null,
-                                React.createElement('i', { className: 'fas fa-calendar' }),
-                                ` ${formatDate(post.date)}`
-                            ),
-                            React.createElement('span', null,
-                                React.createElement('i', { className: 'fas fa-clock' }),
-                                ` ${post.readTime}`
-                            )
-                        )
+                React.createElement('div', {
+                    className: `theme-switch ${rotate ? 'rotate' : ''}`
+                },
+                    React.createElement('i', {
+                        className: theme === 'light' ? 'fas fa-moon' : 'fas fa-sun'
+                    })
+                )
+            );
+        }
+
+        // Navigation Component
+        function Navigation() {
+            return React.createElement('nav', { className: 'nav' },
+                React.createElement('div', { className: 'container nav-content' },
+                    React.createElement('a', { className: 'logo', href: 'index.html' },
+                        React.createElement('div', { className: 'logo-icon' }, 'Q'),
+                        'Q0k0LaTes'
                     ),
-                    React.createElement('div', { className: 'category-badge' }, post.category)
-                ),
-                React.createElement('p', { className: 'post-excerpt' }, post.excerpt),
-                React.createElement('div', { className: 'post-footer' },
-                    React.createElement('div', { className: 'post-tags' },
-                        post.tags.map(tag => 
-                            React.createElement('span', { 
-                                key: tag, 
-                                className: 'tag'
-                            }, `#${tag}`)
-                        )
-                    ),
-                    React.createElement('div', { className: 'post-stats' },
-                        React.createElement('span', null,
-                            React.createElement('i', { className: 'fas fa-heart' }),
-                            post.likes
+                    
+                    React.createElement('div', { className: 'nav-links' },
+                        React.createElement('a', { className: 'nav-link active', href: 'index.html' }, 'Home'),
+                        React.createElement('a', { className: 'nav-link', href: 'about.html' }, 'About'),
+                        React.createElement('a', { className: 'nav-link', href: '#' }, 'Archives'),
+                        React.createElement('a', { className: 'nav-link', href: '#contact' }, 'Contact')
+                    )
+                )
+            );
+        }
+
+        // Featured Post Component
+        function FeaturedPost({ post }) {
+            return React.createElement('div', { className: 'featured-post' },
+                React.createElement('div', { className: 'featured-container' },
+                    React.createElement('div', { className: 'featured-image-container' },
+                        React.createElement('div', { className: 'featured-badge' },
+                            React.createElement('i', { className: 'fas fa-star' }),
+                            'Featured'
                         ),
-                        React.createElement('span', null,
-                            React.createElement('i', { className: 'fas fa-eye' }),
-                            post.views
+                        React.createElement('img', {
+                            className: 'featured-image',
+                            src: post.image,
+                            alt: post.title
+                        })
+                    ),
+                    
+                    React.createElement('div', { className: 'featured-content' },
+                        React.createElement('div', { className: 'featured-date' },
+                            React.createElement('i', { className: 'far fa-calendar-alt' }),
+                            post.date
+                        ),
+                        React.createElement('h2', { className: 'featured-title' }, post.title),
+                        React.createElement('p', { className: 'featured-excerpt' }, post.excerpt),
+                        
+                        React.createElement('div', { className: 'featured-tags' },
+                            post.tags.map((tag, index) => 
+                                React.createElement('span', { 
+                                    className: 'featured-tag',
+                                    key: index
+                                }, tag)
+                            )
+                        ),
+                        
+                        React.createElement('a', { 
+                            className: 'featured-link',
+                            href: '#'
+                        },
+                            'Read More',
+                            React.createElement('i', { className: 'fas fa-arrow-right' })
                         )
                     )
                 )
             );
         }
 
-        // Fullscreen Post Component
-        function FullscreenPost({ post, onClose, onLike, onPrev, onNext, hasNext, hasPrev }) {
-            const [visible, setVisible] = useState(false);
-            const [progress, setProgress] = useState(0);
-            const contentRef = useRef(null);
-            
-            useEffect(() => {
-                if (post) {
-                    setVisible(true);
-                    document.body.style.overflow = 'hidden';
+        // Post Card Component
+        function PostCard({ post, index }) {
+            return React.createElement('div', { 
+                className: 'post-card',
+                style: { animationDelay: `${index * 0.1}s` }
+            },
+                React.createElement('img', {
+                    className: 'post-image',
+                    src: post.image,
+                    alt: post.title
+                }),
+                
+                React.createElement('div', { className: 'post-content' },
+                    React.createElement('div', { className: 'post-date' },
+                        React.createElement('i', { className: 'far fa-calendar-alt' }),
+                        post.date
+                    ),
+                    React.createElement('h3', { className: 'post-title' }, post.title),
+                    React.createElement('p', { className: 'post-excerpt' }, post.excerpt),
                     
-                    // Add scroll event listener for progress bar
-                    const handleScroll = () => {
-                        if (contentRef.current) {
-                            const scrollTop = contentRef.current.scrollTop;
-                            const scrollHeight = contentRef.current.scrollHeight;
-                            const clientHeight = contentRef.current.clientHeight;
-                            const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
-                            setProgress(scrollPercentage);
-                        }
-                    };
+                    React.createElement('div', { className: 'post-tags' },
+                        post.tags.map((tag, index) => 
+                            React.createElement('span', { 
+                                className: 'post-tag',
+                                key: index
+                            }, tag)
+                        )
+                    ),
                     
-                    const contentElement = contentRef.current;
-                    if (contentElement) {
-                        contentElement.addEventListener('scroll', handleScroll);
-                    }
-                    
-                    return () => {
-                        if (contentElement) {
-                            contentElement.removeEventListener('scroll', handleScroll);
-                        }
-                    };
-                }
-            }, [post]);
-            
-            const handleClose = () => {
-                setVisible(false);
-                setTimeout(() => {
-                    onClose();
-                    document.body.style.overflow = '';
-                }, 500);
-            };
-            
-            const handleLike = () => {
-                const heartIcon = document.querySelector('.fullscreen-like i');
-                heartIcon.classList.add('heart-beat');
-                setTimeout(() => {
-                    heartIcon.classList.remove('heart-beat');
-                }, 1000);
-                onLike(post.id);
-            };
-            
-            if (!post) return null;
-            
-            const formatDate = (dateString) => {
-                return new Date(dateString).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-            };
-            
-            // Get first letter of author name for avatar
-            const authorInitial = post.author.charAt(0);
-            
-            // Mock related posts
-            const relatedPosts = [
-                {
-                    id: post.id + 1,
-                    title: "Related: Advanced JavaScript Techniques",
-                    date: "2025-05-10",
-                    author: "Tech Team"
-                },
-                {
-                    id: post.id + 2,
-                    title: "Related: CSS Frameworks Comparison",
-                    date: "2025-05-08",
-                    author: "Design Team"
-                },
-                {
-                    id: post.id + 3,
-                    title: "Related: Web Performance Optimization",
-                    date: "2025-05-05",
-                    author: "Dev Team"
-                }
-            ];
-            
-            // Mock comments
-            const comments = [
+                    React.createElement('a', { 
+                        className: 'post-link',
+                        href: '#'
+                    },
+                        'Read More',
+                        React.createElement('i', { className: 'fas fa-arrow-right' })
+                    )
+                )
+            );
+        }
+
+        // Comments Section Component
+        function CommentsSection() {
+            const [comments, setComments] = useState([
                 {
                     id: 1,
-                    author: "Alex Johnson",
-                    date: "2025-05-21",
-                    text: "This is a fantastic article! I've been struggling with CSS Grid for a while, and your explanations really helped clarify things for me.",
-                    initial: "A"
+                    author: 'Alex Johnson',
+                    date: 'May 15, 2025',
+                    content: 'Great article! I really enjoyed the insights on the latest tech trends.'
                 },
                 {
                     id: 2,
-                    author: "Maria Garcia",
-                    date: "2025-05-20",
-                    text: "Great insights! I especially liked the comparison between Grid and Flexbox. Would love to see more examples of complex layouts.",
-                    initial: "M"
-                },
-                {
-                    id: 3,
-                    author: "David Kim",
-                    date: "2025-05-19",
-                    text: "Thanks for sharing this knowledge. The browser support section was particularly useful for my current project.",
-                    initial: "D"
+                    author: 'Sarah Williams',
+                    date: 'May 14, 2025',
+                    content: 'This was very informative. Looking forward to more content like this!'
                 }
-            ];
-
-            return React.createElement('div', { 
-                className: `fullscreen-overlay ${visible ? 'visible' : ''}`,
-            },
-                React.createElement('div', { className: 'progress-bar', style: { width: `${progress}%` } }),
+            ]);
+            
+            const [newComment, setNewComment] = useState({
+                name: '',
+                comment: ''
+            });
+            
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setNewComment(prev => ({
+                    ...prev,
+                    [name]: value
+                }));
+            };
+            
+            const handleSubmit = (e) => {
+                e.preventDefault();
                 
-                React.createElement('button', { 
-                    className: 'fullscreen-close',
-                    onClick: handleClose
-                }, '×'),
+                if (!newComment.name || !newComment.comment) {
+                    alert('Please fill in all fields');
+                    return;
+                }
                 
-                hasPrev && React.createElement('button', {
-                    className: 'fullscreen-nav fullscreen-prev',
-                    onClick: onPrev
-                }, React.createElement('i', { className: 'fas fa-chevron-left' })),
+                const comment = {
+                    id: comments.length + 1,
+                    author: newComment.name,
+                    date: new Date().toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }),
+                    content: newComment.comment
+                };
                 
-                hasNext && React.createElement('button', {
-                    className: 'fullscreen-nav fullscreen-next',
-                    onClick: onNext
-                }, React.createElement('i', { className: 'fas fa-chevron-right' })),
+                setComments(prev => [comment, ...prev]);
+                setNewComment({ name: '', comment: '' });
                 
-                React.createElement('div', { 
-                    className: 'fullscreen-content',
-                    ref: contentRef
+                // Here we would normally send the comment to the server/MongoDB
+                console.log('New comment:', comment);
+            };
+            
+            return React.createElement('section', { className: 'comments-section' },
+                React.createElement('h2', { className: 'comments-title' }, 'Comments'),
+                
+                React.createElement('form', { 
+                    className: 'comment-form',
+                    onSubmit: handleSubmit
                 },
-                    React.createElement('div', { className: 'fullscreen-header' },
-                        React.createElement('div', { className: 'container' },
-                            React.createElement('h1', { className: 'fullscreen-title' }, post.title),
-                            React.createElement('div', { className: 'fullscreen-meta' },
-                                React.createElement('span', null,
-                                    React.createElement('i', { className: 'fas fa-user' }),
-                                    ` ${post.author}`
-                                ),
-                                React.createElement('span', null,
-                                    React.createElement('i', { className: 'fas fa-calendar' }),
-                                    ` ${formatDate(post.date)}`
-                                ),
-                                React.createElement('span', null,
-                                    React.createElement('i', { className: 'fas fa-clock' }),
-                                    ` ${post.readTime}`
-                                ),
-                                React.createElement('span', null,
-                                    React.createElement('i', { className: 'fas fa-eye' }),
-                                    ` ${post.views} views`
-                                )
-                            ),
-                            React.createElement('div', { className: 'fullscreen-tags' },
-                                post.tags.map(tag => 
-                                    React.createElement('span', { 
-                                        key: tag, 
-                                        className: 'fullscreen-tag'
-                                    }, `#${tag}`)
-                                )
-                            )
-                        )
+                    React.createElement('div', { className: 'form-group' },
+                        React.createElement('label', { className: 'form-label' }, 'Your Name'),
+                        React.createElement('input', {
+                            type: 'text',
+                            className: 'form-control',
+                            placeholder: 'Enter your name',
+                            name: 'name',
+                            value: newComment.name,
+                            onChange: handleInputChange,
+                            required: true
+                        })
                     ),
                     
-                    React.createElement('div', { className: 'fullscreen-body' },
+                    React.createElement('div', { className: 'form-group' },
+                        React.createElement('label', { className: 'form-label' }, 'Your Comment'),
+                        React.createElement('textarea', {
+                            className: 'form-control',
+                            placeholder: 'Enter your comment',
+                            name: 'comment',
+                            value: newComment.comment,
+                            onChange: handleInputChange,
+                            required: true
+                        })
+                    ),
+                    
+                    React.createElement('button', {
+                        type: 'submit',
+                        className: 'btn-submit'
+                    },
+                        React.createElement('i', { className: 'fas fa-paper-plane' }),
+                        'Post Comment'
+                    )
+                ),
+                
+                React.createElement('div', { className: 'comments-list' },
+                    comments.map(comment => 
                         React.createElement('div', { 
-                            className: 'fullscreen-content-text',
-                            dangerouslySetInnerHTML: { __html: post.content }
-                        }),
-                        
-                        React.createElement('div', { className: 'author-section' },
-                            React.createElement('div', { className: 'author-avatar' }, authorInitial),
-                            React.createElement('div', { className: 'author-info' },
-                                React.createElement('h4', null, `About ${post.author}`),
-                                React.createElement('p', null, `${post.author} is a passionate writer and expert in ${post.category}. With years of experience in the field, they bring valuable insights and practical knowledge to their articles.`)
-                            )
-                        ),
-                        
-                        React.createElement('div', { className: 'fullscreen-actions' },
-                            React.createElement('button', {
-                                className: 'fullscreen-like',
-                                onClick: handleLike
-                            },
-                                React.createElement('i', { className: 'fas fa-heart' }),
-                                `Like (${post.likes})`
+                            className: 'comment',
+                            key: comment.id
+                        },
+                            React.createElement('div', { className: 'comment-header' },
+                                React.createElement('div', { className: 'comment-author' },
+                                    React.createElement('i', { className: 'fas fa-user-circle' }),
+                                    comment.author
+                                ),
+                                React.createElement('div', { className: 'comment-date' }, comment.date)
                             ),
-                            React.createElement('button', {
-                                className: 'fullscreen-share'
-                            },
-                                React.createElement('i', { className: 'fas fa-share-alt' }),
-                                'Share'
-                            )
-                        ),
-                        
-                        React.createElement('div', { className: 'comments-section' },
-                            React.createElement('h3', null, 'Comments'),
-                            comments.map(comment => 
-                                React.createElement('div', { 
-                                    key: comment.id,
-                                    className: 'comment'
-                                },
-                                    React.createElement('div', { className: 'comment-avatar' }, comment.initial),
-                                    React.createElement('div', { className: 'comment-content' },
-                                        React.createElement('div', { className: 'comment-header' },
-                                            React.createElement('span', { className: 'comment-author' }, comment.author),
-                                            React.createElement('span', { className: 'comment-date' }, formatDate(comment.date))
-                                        ),
-                                        React.createElement('p', { className: 'comment-text' }, comment.text),
-                                        React.createElement('div', { className: 'comment-actions' },
-                                            React.createElement('span', { className: 'comment-action' }, 'Reply'),
-                                            React.createElement('span', { className: 'comment-action' }, 'Like')
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        
-                        React.createElement('div', { className: 'related-posts' },
-                            React.createElement('h3', null, 'You might also like'),
-                            React.createElement('div', { className: 'related-posts-grid' },
-                                relatedPosts.map(relatedPost => 
-                                    React.createElement('div', {
-                                        key: relatedPost.id,
-                                        className: 'related-post-card',
-                                        onClick: (e) => {
-                                            e.stopPropagation();
-                                            // In a real app, you would navigate to the related post
-                                            console.log(`Navigate to related post ${relatedPost.id}`);
-                                        }
-                                    },
-                                        React.createElement('h4', { className: 'related-post-title' }, relatedPost.title),
-                                        React.createElement('div', { className: 'related-post-meta' },
-                                            React.createElement('span', null, `By ${relatedPost.author}`),
-                                            React.createElement('span', null, ` • ${formatDate(relatedPost.date)}`)
-                                        )
-                                    )
-                                )
-                            )
+                            React.createElement('div', { className: 'comment-body' }, comment.content)
                         )
                     )
                 )
             );
         }
 
-        // Sidebar Component
-        function Sidebar({ categories, popularTags, onCategoryFilter, onTagFilter }) {
-            return React.createElement('div', { className: 'sidebar' },
-                React.createElement('div', { className: 'sidebar-section' },
-                    React.createElement('h3', null, 'Categories'),
-                    React.createElement('div', null,
-                        categories.map(category => 
-                            React.createElement('div', {
-                                key: category,
-                                style: { marginBottom: '0.8rem' }
-                            },
-                                React.createElement('button', {
-                                    onClick: () => onCategoryFilter(category),
-                                    style: {
-                                        background: 'none',
-                                        border: 'none',
-                                        color: '#667eea',
-                                        cursor: 'pointer',
-                                        fontSize: '1rem',
-                                        transition: 'all 0.3s ease',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.5rem'
-                                    },
-                                    onMouseOver: (e) => {
-                                        e.target.style.transform = 'translateX(5px)';
-                                    },
-                                    onMouseOut: (e) => {
-                                        e.target.style.transform = 'translateX(0)';
-                                    }
-                                }, 
-                                    React.createElement('i', { className: 'fas fa-folder' }),
-                                    category
-                                )
+        // Footer Component
+        function Footer() {
+            return React.createElement('footer', { className: 'footer' },
+                React.createElement('div', { className: 'container footer-content' },
+                    React.createElement('div', { className: 'footer-section' },
+                        React.createElement('h3', null, 'About'),
+                        React.createElement('p', { style: { marginBottom: '1rem', opacity: 0.8 } }, 
+                            "Q0k0LaTes Blog is a personal tech blog by Terrence Zhuoting Han, focused on sharing knowledge and insights about web development, design, and technology."
+                        ),
+                        React.createElement('div', { className: 'footer-social' },
+                            React.createElement('a', { className: 'social-icon', href: '#' },
+                                React.createElement('i', { className: 'fab fa-twitter' })
+                            ),
+                            React.createElement('a', { className: 'social-icon', href: '#' },
+                                React.createElement('i', { className: 'fab fa-github' })
+                            ),
+                            React.createElement('a', { className: 'social-icon', href: '#' },
+                                React.createElement('i', { className: 'fab fa-linkedin' })
+                            ),
+                            React.createElement('a', { className: 'social-icon', href: '#' },
+                                React.createElement('i', { className: 'fab fa-instagram' })
                             )
+                        )
+                    ),
+                    React.createElement('div', { className: 'footer-section' },
+                        React.createElement('h3', null, 'Quick Links'),
+                        React.createElement('ul', { className: 'footer-links' },
+                            React.createElement('li', null,
+                                React.createElement('a', { href: 'index.html' }, 'Home')
+                            ),
+                            React.createElement('li', null,
+                                React.createElement('a', { href: 'about.html' }, 'About Me')
+                            ),
+                            React.createElement('li', null,
+                                React.createElement('a', { href: '#' }, 'Archives')
+                            ),
+                            React.createElement('li', null,
+                                React.createElement('a', { href: '#' }, 'Privacy Policy')
+                            ),
+                            React.createElement('li', null,
+                                React.createElement('a', { href: '#contact' }, 'Contact')
+                            )
+                        )
+                    ),
+                    React.createElement('div', { className: 'footer-section', id: 'contact' },
+                        React.createElement('h3', null, 'Newsletter'),
+                        React.createElement('p', { style: { marginBottom: '1rem', opacity: 0.8 } }, 
+                            "Subscribe to my newsletter to receive updates on the latest articles and tech news."
+                        ),
+                        React.createElement('div', { className: 'newsletter-form', style: { display: 'flex', gap: '0.5rem' } },
+                            React.createElement('input', {
+                                type: 'email',
+                                placeholder: 'Your email',
+                                style: {
+                                    flex: 1,
+                                    padding: '0.8rem 1rem',
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    fontSize: '0.9rem',
+                                    outline: 'none',
+                                    background: 'rgba(255,255,255,0.2)',
+                                    color: 'white'
+                                }
+                            }),
+                            React.createElement('button', {
+                                style: {
+                                    background: 'white',
+                                    color: 'var(--accent-primary)',
+                                    border: 'none',
+                                    padding: '0.8rem 1rem',
+                                    borderRadius: '10px',
+                                    fontWeight: 'bold',
+                                    cursor: 'pointer'
+                                }
+                            }, 'Join')
                         )
                     )
                 ),
-                React.createElement('div', { className: 'sidebar-section' },
-                    React.createElement('h3', null, 'Popular Tags'),
-                    React.createElement('div', { className: 'popular-tags' },
-                        popularTags.map(({ tag, count }) => 
-                            React.createElement('div', {
-                                key: tag,
-                                className: 'popular-tag',
-                                onClick: () => onTagFilter(tag)
-                            },
-                                React.createElement('span', null, `#${tag}`),
-                                React.createElement('span', { className: 'tag-count' }, count)
-                            )
-                        )
-                    )
-                ),
-                React.createElement('div', { className: 'about-blog' },
-                    React.createElement('h4', null, 'About This Blog'),
-                    React.createElement('p', null, 'Welcome to my personal blog where I share insights, tutorials, and thoughts about technology, design, and web development. Join me on this journey of continuous learning and discovery.')
-                ),
-                React.createElement('div', { className: 'newsletter' },
-                    React.createElement('h4', null, 'Subscribe to Newsletter'),
-                    React.createElement('p', null, 'Get the latest articles and updates delivered straight to your inbox.'),
-                    React.createElement('div', { className: 'newsletter-form' },
-                        React.createElement('input', {
-                            type: 'email',
-                            placeholder: 'Your email',
-                            className: 'newsletter-input'
-                        }),
-                        React.createElement('button', {
-                            className: 'newsletter-btn'
-                        }, 'Join')
+                React.createElement('div', { className: 'footer-bottom container' },
+                    React.createElement('p', null, 
+                        '© 2025 Q0k0LaTes Blog. All rights reserved. Created by Terrence Zhuoting Han.'
                     )
                 )
             );
@@ -1713,16 +1286,66 @@
 
         // Main App Component
         function App() {
-            const [posts, setPosts] = useState([]);
-            const [filteredPosts, setFilteredPosts] = useState([]);
-            const [categories, setCategories] = useState([]);
-            const [popularTags, setPopularTags] = useState([]);
-            const [selectedPost, setSelectedPost] = useState(null);
-            const [loading, setLoading] = useState(true);
-            const [selectedCategory, setSelectedCategory] = useState('all');
-            const [currentPostIndex, setCurrentPostIndex] = useState(null);
-            const cursorRef = useRef(null);
-
+            const [posts, setPosts] = useState([
+                {
+                    id: 1,
+                    title: 'The Future of Web Development',
+                    date: 'May 20, 2025',
+                    excerpt: 'Exploring the latest trends and technologies shaping the future of web development, from WebAssembly to Edge Computing.',
+                    image: 'https://via.placeholder.com/600x400/5D3FD3/FFFFFF?text=Web+Development',
+                    tags: ['Web Dev', 'Trends', 'Technology']
+                },
+                {
+                    id: 2,
+                    title: 'Mastering React Hooks',
+                    date: 'May 18, 2025',
+                    excerpt: 'A comprehensive guide to using React Hooks effectively in your projects, with practical examples and best practices.',
+                    image: 'https://via.placeholder.com/600x400/9D4EDD/FFFFFF?text=React+Hooks',
+                    tags: ['React', 'JavaScript', 'Frontend']
+                },
+                {
+                    id: 3,
+                    title: 'Building Scalable APIs with Node.js',
+                    date: 'May 15, 2025',
+                    excerpt: 'Learn how to design and implement scalable API architectures using Node.js, Express, and MongoDB.',
+                    image: 'https://via.placeholder.com/600x400/2E0854/FFFFFF?text=Node.js+APIs',
+                    tags: ['Node.js', 'API', 'Backend']
+                },
+                {
+                    id: 4,
+                    title: 'CSS Grid vs Flexbox',
+                    date: 'May 12, 2025',
+                    excerpt: 'A detailed comparison of CSS Grid and Flexbox, with guidelines on when to use each for optimal layouts.',
+                    image: 'https://via.placeholder.com/600x400/7B5FFF/FFFFFF?text=CSS+Layouts',
+                    tags: ['CSS', 'Design', 'Frontend']
+                },
+                {
+                    id: 5,
+                    title: 'Introduction to WebAssembly',
+                    date: 'May 10, 2025',
+                    excerpt: 'Discover how WebAssembly is revolutionizing web performance and enabling new possibilities for web applications.',
+                    image: 'https://via.placeholder.com/600x400/5D3FD3/FFFFFF?text=WebAssembly',
+                    tags: ['WebAssembly', 'Performance', 'Web Tech']
+                },
+                {
+                    id: 6,
+                    title: 'Modern Authentication Strategies',
+                    date: 'May 8, 2025',
+                    excerpt: 'Exploring secure authentication methods for web applications, from JWT to OAuth and beyond.',
+                    image: 'https://via.placeholder.com/600x400/2E0854/FFFFFF?text=Authentication',
+                    tags: ['Security', 'Auth', 'Web Dev']
+                }
+            ]);
+            
+            const featuredPost = {
+                id: 0,
+                title: 'The Evolution of AI in Web Development',
+                date: 'May 22, 2025',
+                excerpt: 'Artificial Intelligence is transforming how we build and interact with web applications. This article explores the latest AI tools and frameworks that are revolutionizing the development process, enhancing user experiences, and enabling new possibilities for creators.',
+                image: 'https://via.placeholder.com/1200x800/5D3FD3/FFFFFF?text=AI+in+Web+Development',
+                tags: ['AI', 'Machine Learning', 'Web Dev', 'Future Tech']
+            };
+            
             // Custom cursor effect
             useEffect(() => {
                 const cursor = document.querySelector('.custom-cursor');
@@ -1739,7 +1362,7 @@
                     };
                 }
             }, []);
-            
+
             // Scroll animations
             useEffect(() => {
                 const handleScroll = () => {
@@ -1761,430 +1384,80 @@
                 };
             }, []);
 
-            // Scroll event for navbar
-            useEffect(() => {
-                const handleScroll = () => {
-                    const nav = document.querySelector('.nav');
-                    if (nav) {
-                        if (window.scrollY > 100) {
-                            nav.classList.add('scrolled');
-                        } else {
-                            nav.classList.remove('scrolled');
-                        }
-                    }
-                };
+            return React.createElement(React.Fragment, null,
+                // Enhanced Header
+                React.createElement(EnhancedHeader, {
+                    title: "Q0k0LaTes Blog",
+                    subtitle: "Exploring the frontiers of web development and technology",
+                    authorName: "Terrence Zhuoting Han"
+                }),
                 
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-
-            // Mock data for demo
-            useEffect(() => {
-                // Simulate API call
-                setTimeout(() => {
-                    const mockPosts = [
-                        {
-                            id: 1,
-                            title: "Getting Started with Node.js and React",
-                            author: "John Doe",
-                            date: "2025-05-20",
-                            excerpt: "Learn how to build modern web applications using Node.js backend with React frontend. This comprehensive guide covers everything you need to know.",
-                            content: `
-                              <p>Building modern web applications has never been easier with the powerful combination of Node.js and React. In this comprehensive guide, we'll explore how to create full-stack applications that are both scalable and maintainable.</p>
-                              
-                              <h3>Why Node.js and React?</h3>
-                              <p>Node.js provides a robust backend environment that allows JavaScript developers to use the same language on both client and server sides. React, on the other hand, offers a component-based approach to building user interfaces that makes development efficient and enjoyable.</p>
-                              
-                              <h3>Setting Up Your Development Environment</h3>
-                              <p>First, make sure you have Node.js installed on your system. You can download it from the official website. Once installed, you can create your project structure and start building amazing applications.</p>
-                              
-                              <h3>Best Practices</h3>
-                              <ul>
-                                <li>Use environment variables for configuration</li>
-                                <li>Implement proper error handling</li>
-                                <li>Follow RESTful API conventions</li>
-                                <li>Use proper state management in React</li>
-                              </ul>
-                            `,
-                            category: "Technology",
-                            tags: ["nodejs", "react", "javascript", "web-development"],
-                            readTime: "5 min read",
-                            likes: 42,
-                            views: 1250
-                        },
-                        {
-                            id: 2,
-                            title: "The Future of Web Development in 2025",
-                            author: "Jane Smith",
-                            date: "2025-05-18",
-                            excerpt: "Exploring the latest trends and technologies that are shaping the future of web development. From AI integration to new frameworks.",
-                            content: `
-                              <p>The web development landscape is constantly evolving, and 2025 promises to be an exciting year with numerous technological advancements and paradigm shifts.</p>
-                              
-                              <h3>AI-Powered Development</h3>
-                              <p>Artificial Intelligence is revolutionizing how we write code. Tools like GitHub Copilot and ChatGPT are helping developers be more productive than ever before. We're seeing AI assistance in debugging, code generation, and even architecture decisions.</p>
-                              
-                              <h3>Edge Computing and Serverless</h3>
-                              <p>The rise of edge computing is bringing processing power closer to users, resulting in faster applications and better user experiences. Serverless architectures are becoming mainstream, allowing developers to focus on code rather than infrastructure.</p>
-                              
-                              <h3>New JavaScript Frameworks</h3>
-                              <p>While React, Vue, and Angular continue to dominate, new frameworks like Svelte and Solid.js are gaining traction with their innovative approaches to reactivity and performance.</p>
-                              
-                              <h3>WebAssembly (WASM)</h3>
-                              <p>WebAssembly is opening new possibilities for web applications, allowing developers to run high-performance code written in languages like Rust, C++, and Go directly in the browser.</p>
-                            `,
-                            category: "Technology",
-                            tags: ["web-development", "ai", "future", "trends"],
-                            readTime: "7 min read",
-                            likes: 67,
-                            views: 2100
-                        },
-                        {
-                            id: 3,
-                            title: "Building Responsive Designs with CSS Grid",
-                            author: "Mike Johnson",
-                            date: "2025-05-15",
-                            excerpt: "Master CSS Grid to create beautiful, responsive layouts that work perfectly on all devices. Tips, tricks, and real-world examples included.",
-                            content: `
-                              <p>CSS Grid has revolutionized how we approach layout design on the web. Unlike flexbox, which is one-dimensional, CSS Grid provides a two-dimensional layout system that gives us unprecedented control over our designs.</p>
-                              
-                              <h3>Understanding Grid Basics</h3>
-                              <p>CSS Grid introduces concepts like grid containers, grid items, grid lines, and grid areas. Understanding these fundamentals is crucial for mastering grid layouts.</p>
-                              
-                              <h3>Creating Responsive Layouts</h3>
-                              <p>One of the most powerful features of CSS Grid is its ability to create responsive layouts without media queries. Using functions like minmax(), repeat(), and auto-fit, we can create layouts that automatically adapt to different screen sizes.</p>
-                              
-                              <h3>Grid vs Flexbox</h3>
-                              <p>While both are powerful layout tools, they serve different purposes:</p>
-                              <ul>
-                                <li>Use Flexbox for one-dimensional layouts (rows or columns)</li>
-                                <li>Use Grid for two-dimensional layouts (rows and columns)</li>
-                                <li>They work great together in complex designs</li>
-                              </ul>
-                              
-                              <h3>Browser Support</h3>
-                              <p>CSS Grid is now supported in all modern browsers, making it safe to use in production environments. For older browsers, you can provide fallbacks using flexbox or floats.</p>
-                            `,
-                            category: "Design",
-                            tags: ["css", "grid", "responsive", "layout"],
-                            readTime: "6 min read",
-                            likes: 35,
-                            views: 890
-                        },
-                        {
-                            id: 4,
-                            title: "Database Design Best Practices",
-                            author: "Sarah Wilson",
-                            date: "2025-05-12",
-                            excerpt: "Learn essential database design principles that will make your applications more efficient, scalable, and maintainable.",
-                            content: `
-                              <p>Good database design is the foundation of any successful application. Poor database design can lead to performance issues, data inconsistencies, and maintenance nightmares.</p>
-                              
-                              <h3>Normalization</h3>
-                              <p>Database normalization is the process of organizing data to reduce redundancy and improve data integrity. Understanding the different normal forms (1NF, 2NF, 3NF) is essential for creating efficient database schemas.</p>
-                              
-                              <h3>Indexing Strategies</h3>
-                              <p>Proper indexing can dramatically improve query performance. However, indexes come with trade-offs - they speed up reads but can slow down writes. Choose your indexes carefully based on your application's usage patterns.</p>
-                              
-                              <h3>Relationships and Constraints</h3>
-                              <p>Properly defining relationships between tables and implementing constraints ensures data integrity and prevents common data-related bugs.</p>
-                              
-                              <h3>Performance Considerations</h3>
-                              <ul>
-                                <li>Use appropriate data types</li>
-                                <li>Avoid unnecessary columns</li>
-                                <li>Consider denormalization for read-heavy applications</li>
-                                <li>Plan for scalability from the beginning</li>
-                              </ul>
-                            `,
-                            category: "Backend",
-                            tags: ["database", "sql", "design", "performance"],
-                            readTime: "8 min read",
-                            likes: 89,
-                            views: 1560
-                        },
-                        {
-                            id: 5,
-                            title: "The Art of Technical Writing",
-                            author: "Emily Chen",
-                            date: "2025-05-10",
-                            excerpt: "Discover how to write clear, concise, and effective technical documentation that helps users and fellow developers.",
-                            content: `
-                              <p>Technical writing is a crucial skill for developers, yet it's often overlooked in favor of coding skills. Good documentation can make the difference between a successful project and one that's abandoned due to complexity.</p>
-                              
-                              <h3>Know Your Audience</h3>
-                              <p>The first rule of technical writing is to understand who you're writing for. Are they beginners or experts? Developers or end-users? Tailor your language, examples, and level of detail accordingly.</p>
-                              
-                              <h3>Structure Matters</h3>
-                              <p>Well-organized documentation is easier to navigate and understand. Use clear headings, a logical progression of topics, and consistent formatting throughout your documents.</p>
-                              
-                              <h3>Be Clear and Concise</h3>
-                              <p>Technical writing should be precise and to the point. Avoid jargon unless necessary, and explain complex concepts with simple language and examples.</p>
-                              
-                              <h3>Use Visual Aids</h3>
-                              <p>Diagrams, screenshots, and code examples can often explain concepts more clearly than text alone. Use them liberally, but ensure they add value and are properly explained.</p>
-                            `,
-                            category: "Writing",
-                            tags: ["documentation", "writing", "communication", "developer-experience"],
-                            readTime: "6 min read",
-                            likes: 54,
-                            views: 1120
-                        }
-                    ];
-                    
-                    setFilteredPosts(mockPosts);
-                    setPosts(mockPosts);
-                    setCategories(['All', 'Technology', 'Design', 'Backend', 'Writing']);
-                    setPopularTags([
-                        { tag: 'javascript', count: 12 },
-                        { tag: 'react', count: 8 },
-                        { tag: 'css', count: 6 },
-                        { tag: 'nodejs', count: 5 },
-                        { tag: 'database', count: 4 },
-                        { tag: 'web-development', count: 10 }
-                    ]);
-                    setLoading(false);
-                }, 1000);
-            }, []);
-
-            const handleViewPost = (id) => {
-                const post = posts.find(p => p.id === id);
-                const index = posts.findIndex(p => p.id === id);
-                setSelectedPost(post);
-                setCurrentPostIndex(index);
-            };
-
-            const handleClosePost = () => {
-                setSelectedPost(null);
-                setCurrentPostIndex(null);
-            };
-
-            const handleLike = (id) => {
-                // Update likes logic here
-                setPosts(prevPosts => 
-                    prevPosts.map(post => 
-                        post.id === id ? { ...post, likes: post.likes + 1 } : post
-                    )
-                );
-                
-                setFilteredPosts(prevPosts => 
-                    prevPosts.map(post => 
-                        post.id === id ? { ...post, likes: post.likes + 1 } : post
-                    )
-                );
-                
-                if (selectedPost && selectedPost.id === id) {
-                    setSelectedPost(prev => ({ ...prev, likes: prev.likes + 1 }));
-                }
-            };
-
-            const handleCategoryFilter = (category) => {
-                setSelectedCategory(category.toLowerCase());
-                
-                if (category.toLowerCase() === 'all') {
-                    setFilteredPosts(posts);
-                } else {
-                    setFilteredPosts(
-                        posts.filter(post => post.category.toLowerCase() === category.toLowerCase())
-                    );
-                }
-            };
-
-            const handleTagFilter = (tag) => {
-                setFilteredPosts(
-                    posts.filter(post => post.tags.includes(tag))
-                );
-            };
-            
-            const handlePrevPost = () => {
-                if (currentPostIndex > 0) {
-                    const prevPost = posts[currentPostIndex - 1];
-                    setSelectedPost(prevPost);
-                    setCurrentPostIndex(currentPostIndex - 1);
-                }
-            };
-            
-            const handleNextPost = () => {
-                if (currentPostIndex < posts.length - 1) {
-                    const nextPost = posts[currentPostIndex + 1];
-                    setSelectedPost(nextPost);
-                    setCurrentPostIndex(currentPostIndex + 1);
-                }
-            };
-
-            return React.createElement('div', null,
-                // Header
-                React.createElement('header', { className: 'header' },
-                    React.createElement('div', { className: 'header-decoration decoration-1' }),
-                    React.createElement('div', { className: 'header-decoration decoration-2' }),
-                    React.createElement('div', { className: 'header-decoration decoration-3' }),
-                    React.createElement('div', { className: 'header-decoration decoration-4' }),
-                    React.createElement('div', { className: 'header-decoration decoration-5' }),
-                    React.createElement('div', { className: 'header-decoration decoration-6' }),
-                    React.createElement('div', { className: 'container' },
-                        React.createElement('div', { className: 'header-content' },
-                            React.createElement('h1', null, '✨ My Personal Blog'),
-                            React.createElement('p', null, 'Thoughts, stories and ideas about technology, design, and development')
-                        )
-                    )
-                ),
-
                 // Navigation
-                React.createElement('nav', { className: 'nav' },
-                    React.createElement('div', { className: 'container nav-content' },
-                        React.createElement('div', { className: 'filters' },
-                            React.createElement('select', {
-                                value: selectedCategory,
-                                onChange: (e) => handleCategoryFilter(e.target.value)
-                            },
-                                categories.map(category => 
-                                    React.createElement('option', {
-                                        key: category,
-                                        value: category.toLowerCase()
-                                    }, category)
-                                )
-                            )
-                        )
-                    )
-                ),
-
+                React.createElement(Navigation),
+                
                 // Main Content
-                React.createElement('div', { className: 'container' },
-                    React.createElement('div', { className: 'main-content' },
+                React.createElement('main', { className: 'main-content' },
+                    React.createElement('div', { className: 'container' },
+                        // Featured Post
+                        React.createElement(FeaturedPost, { post: featuredPost }),
+                        
                         // Blog Posts
-                        React.createElement('main', null,
-                            loading ? 
-                                React.createElement('div', { className: 'loading' },
-                                    React.createElement('div', { className: 'spinner' }),
-                                    React.createElement('div', null, 'Loading amazing articles...')
-                                ) :
-                                React.createElement('div', { className: 'blog-posts' },
-                                    filteredPosts.length > 0 ?
-                                        filteredPosts.map((post, index) => 
-                                            React.createElement(BlogPost, {
-                                                key: post.id,
-                                                post: post,
-                                                onViewPost: handleViewPost,
-                                                index: index
-                                            })
-                                        ) :
-                                        React.createElement('div', { 
-                                            style: { textAlign: 'center', padding: '3rem' }
-                                        },
-                                            React.createElement('h2', null, 'No articles found'),
-                                            React.createElement('p', null, 'Try adjusting your filters')
-                                        )
-                                )
+                        React.createElement('h2', { 
+                            className: 'section-title',
+                            style: {
+                                fontFamily: 'Orbitron, sans-serif',
+                                fontSize: '2.5rem',
+                                marginBottom: '2rem',
+                                color: 'var(--text-primary)',
+                                textAlign: 'center',
+                                position: 'relative',
+                                paddingBottom: '1rem'
+                            }
+                        }, "Latest Articles"),
+                        
+                        React.createElement('div', { className: 'blog-posts' },
+                            posts.map((post, index) => 
+                                React.createElement(PostCard, { 
+                                    post: post,
+                                    index: index,
+                                    key: post.id
+                                })
+                            )
                         ),
-
-                        // Sidebar
-                        React.createElement(Sidebar, {
-                            categories: categories.filter(cat => cat !== 'All'),
-                            popularTags: popularTags,
-                            onCategoryFilter: handleCategoryFilter,
-                            onTagFilter: handleTagFilter
-                        })
+                        
+                        // Pagination
+                        React.createElement('div', { className: 'pagination' },
+                            React.createElement('a', { className: 'page-link', href: '#' },
+                                React.createElement('i', { className: 'fas fa-chevron-left' })
+                            ),
+                            React.createElement('a', { className: 'page-link active', href: '#' }, '1'),
+                            React.createElement('a', { className: 'page-link', href: '#' }, '2'),
+                            React.createElement('a', { className: 'page-link', href: '#' }, '3'),
+                            React.createElement('a', { className: 'page-link', href: '#' },
+                                React.createElement('i', { className: 'fas fa-chevron-right' })
+                            )
+                        ),
+                        
+                        // Comments Section
+                        React.createElement(CommentsSection)
                     )
                 ),
                 
                 // Footer
-                React.createElement('footer', { className: 'footer' },
-                    React.createElement('div', { className: 'container' },
-                        React.createElement('div', { className: 'footer-content' },
-                            React.createElement('div', { className: 'footer-section' },
-                                React.createElement('h3', null, 'About'),
-                                React.createElement('p', { style: { color: 'rgba(255,255,255,0.8)', marginBottom: '1rem' } }, 
-                                    'A personal blog sharing thoughts and insights about technology, design, and development.'
-                                ),
-                                React.createElement('div', { className: 'footer-social' },
-                                    React.createElement('a', { className: 'social-icon', href: '#' },
-                                        React.createElement('i', { className: 'fab fa-twitter' })
-                                    ),
-                                    React.createElement('a', { className: 'social-icon', href: '#' },
-                                        React.createElement('i', { className: 'fab fa-github' })
-                                    ),
-                                    React.createElement('a', { className: 'social-icon', href: '#' },
-                                        React.createElement('i', { className: 'fab fa-linkedin' })
-                                    ),
-                                    React.createElement('a', { className: 'social-icon', href: '#' },
-                                        React.createElement('i', { className: 'fab fa-instagram' })
-                                    )
-                                )
-                            ),
-                            React.createElement('div', { className: 'footer-section' },
-                                React.createElement('h3', null, 'Categories'),
-                                React.createElement('ul', { className: 'footer-links' },
-                                    categories.filter(cat => cat !== 'All').map(category => 
-                                        React.createElement('li', { key: category },
-                                            React.createElement('a', { 
-                                                href: '#',
-                                                onClick: (e) => {
-                                                    e.preventDefault();
-                                                    handleCategoryFilter(category);
-                                                }
-                                            }, category)
-                                        )
-                                    )
-                                )
-                            ),
-                            React.createElement('div', { className: 'footer-section' },
-                                React.createElement('h3', null, 'Quick Links'),
-                                React.createElement('ul', { className: 'footer-links' },
-                                    React.createElement('li', null, React.createElement('a', { href: '#' }, 'Home')),
-                                    React.createElement('li', null, React.createElement('a', { href: '#' }, 'About')),
-                                    React.createElement('li', null, React.createElement('a', { href: '#' }, 'Contact')),
-                                    React.createElement('li', null, React.createElement('a', { href: '#' }, 'Privacy Policy'))
-                                )
-                            )
-                        ),
-                        React.createElement('div', { className: 'footer-bottom' },
-                            React.createElement('p', null, '© 2025 My Personal Blog. All rights reserved.')
-                        )
-                    )
-                ),
-
-                // Fullscreen Post View
-                selectedPost && React.createElement(FullscreenPost, {
-                    post: selectedPost,
-                    onClose: handleClosePost,
-                    onLike: handleLike,
-                    onPrev: handlePrevPost,
-                    onNext: handleNextPost,
-                    hasPrev: currentPostIndex > 0,
-                    hasNext: currentPostIndex < posts.length - 1
-                })
+                React.createElement(Footer),
+                
+                // Theme Switch
+                React.createElement(ThemeSwitch)
             );
         }
 
         // Render the App
         ReactDOM.render(
-            React.createElement(App),
+            React.createElement(ThemeProvider, null,
+                React.createElement(App)
+            ),
             document.getElementById('root')
         );
-        
-        // Add scroll animation detection
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add fade-in-element class to elements that should animate on scroll
-            const elementsToAnimate = document.querySelectorAll('.post-card, .sidebar-section');
-            elementsToAnimate.forEach(element => {
-                element.classList.add('fade-in-element');
-            });
-            
-            // Trigger initial check
-            const handleScroll = () => {
-                const elements = document.querySelectorAll('.fade-in-element');
-                elements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementVisible = 150;
-                    if (elementTop < window.innerHeight - elementVisible) {
-                        element.classList.add('visible');
-                    }
-                });
-            };
-            
-            window.addEventListener('scroll', handleScroll);
-            handleScroll(); // Check on initial load
-        });
     </script>
 </body>
 </html>

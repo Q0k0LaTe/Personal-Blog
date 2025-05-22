@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Q0k0LaTes - Terrence Zhuoting Han</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Theme Variables */
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #121212;
+            --text-secondary: #555;
+            --accent-primary: #5D3FD3;
+            --accent-secondary: #2E0854;
+            --accent-tertiary: #9D4EDD;
+            --border-color: rgba(93, 63, 211, 0.1);
+            --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            --header-gradient: linear-gradient(135deg, #5D3FD3 0%, #2E0854 100%);
+            --card-bg: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --nav-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            --tag-bg: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+            --tag-color: #555;
+            --divider-color: #eee;
+            --grid-pattern: rgba(93, 63, 211, 0.03);
+            --theme-transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Variables */
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #121212;
+            --text-primary: #f0f0f0;
+            --text-secondary: #aaa;
+            --accent-primary: #7B5FFF;
+            --accent-secondary: #5D3FD3;
+            --accent-tertiary: #9D4EDD;
+            --border-color: rgba(123, 95, 255, 0.2);
+            --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            --header-gradient: linear-gradient(135deg, #5D3FD3 0%, #2E0854 100%);
+            --card-bg: #1A1A1A;
+            --nav-bg: rgba(18, 18, 18, 0.9);
+            --nav-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            --tag-bg: linear-gradient(135deg, #2a2a2a, #222);
+            --tag-color: #aaa;
+            --divider-color: #333;
+            --grid-pattern: rgba(123, 95, 255, 0.05);
+            --theme-transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--theme-transition);
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(var(--grid-pattern) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-pattern) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Theme Switch */
+        .theme-switch-wrapper {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .theme-switch-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-switch {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+        
+        .theme-switch.rotate {
+            transform: rotate(360deg);
+        }
+        
+        /* Hi-Tech Header Styles */
+        .header {
+            background: var(--header-gradient);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 30px rgba(93, 63, 211, 0.3);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.05) 50%, transparent 52%);
+            background-size: 30px 30px;
+            animation: movePattern 20s linear infinite;
+        }
+        
+        @keyframes movePattern {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(93, 63, 211, 0.5);
+            animation: glowText 3s ease-in-out infinite alternate;
+            letter-spacing: 2px;
+        }
+        
+        @keyframes glowText {
+            from { text-shadow: 0 0 10px rgba(93, 63, 211, 0.5); }
+            to { text-shadow: 0 0 20px rgba(157, 78, 221, 0.8); }
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease-out 0.2s both;
+            font-weight: 300;
+        }
+        
+        .header-decoration {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .decoration-1 {
+            top: 20%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .decoration-2 {
+            top: 60%;
+            right: 15%;
+            width: 150px;
+            height: 150px;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        .decoration-3 {
+            bottom: 20%;
+            left: 20%;
+            width: 80px;
+            height: 80px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: float 7s ease-in-out infinite;
+        }
+        
+        .decoration-4 {
+            top: 30%;
+            right: 30%;
+            width: 60px;
+            height: 60px;
+            clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+            animation: float 9s ease-in-out infinite 1s;
+        }
+        
+        .decoration-5 {
+            bottom: 40%;
+            right: 10%;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            animation: float 5s ease-in-out infinite 0.5s;
+        }
+        
+        .decoration-6 {
+            top: 15%;
+            right: 45%;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            animation: float 7s ease-in-out infinite 1.5s;
+            background: rgba(255,255,255,0.15);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Navigation */
+        .nav {
+            background: var(--nav-bg);
+            padding: 1rem 0;
+            box-shadow: var(--nav-shadow);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-radius: 20px;
+            margin: -2rem 20px 2rem 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            background: var(--accent-primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-primary);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: var(--accent-primary);
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* About Page Specific Styles */
+        .about-section {
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .about-image {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            transition: all 0.5s ease;
+            transform: translateZ(0);
+        }
+        
+        .about-image-container:hover .about-image {
+            transform: translateZ(20px);
+        }
+        
+        .about-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--header-gradient);
+            opacity: 0.2;
+            mix-blend-mode: overlay;
+            transition: all 0.5s ease;
+        }
+        
+        .about-image-container:hover .about-image-overlay {
+            opacity: 0.4;
+        }
+        
+        .about-content {
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.5s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInContent 1s forwards 0.5s;
+        }
+        
+        @keyframes fadeInContent {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .about-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--accent-primary);
+        }
+        
+        .about-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--accent-primary);
+            transition: width 0.5s ease;
+        }
+        
+        .about-content:hover .about-title::after {
+            width: 100%;
+        }
+        
+        .about-text {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-text strong {
+            color: var(--accent-primary);
+            font-weight: 500;
+        }
+        
+        /* Skills Section */
+        .skills-section {
+            margin: 4rem 0;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-primary);
+            border-radius: 4px;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .skill-card:nth-child(1) { animation: fadeInSkill 0.6s forwards 0.1s; }
+        .skill-card:nth-child(2) { animation: fadeInSkill 0.6s forwards 0.2s; }
+        .skill-card:nth-child(3) { animation: fadeInSkill 0.6s forwards 0.3s; }
+        .skill-card:nth-child(4) { animation: fadeInSkill 0.6s forwards 0.4s; }
+        .skill-card:nth-child(5) { animation: fadeInSkill 0.6s forwards 0.5s; }
+        .skill-card:nth-child(6) { animation: fadeInSkill 0.6s forwards 0.6s; }
+        
+        @keyframes fadeInSkill {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--accent-primary);
+            transition: height 0.5s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px) translateX(5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--accent-primary);
+        }
+        
+        .skill-card:hover::before {
+            height: 100%;
+        }
+        
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            transition: all 0.5s ease;
+        }
+        
+        .skill-card:hover .skill-icon {
+            transform: scale(1.2);
+            color: var(--accent-tertiary);
+        }
+        
+        .skill-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover .skill-title {
+            color: var(--accent-primary);
+            transform: translateX(10px);
+        }
+        
+        .skill-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover .skill-description {
+            transform: translateX(10px);
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--accent-primary);
+            opacity: 0.3;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .timeline-item:nth-child(1) { animation: fadeInTimeline 0.8s forwards 0.1s; }
+        .timeline-item:nth-child(2) { animation: fadeInTimeline 0.8s forwards 0.3s; }
+        .timeline-item:nth-child(3) { animation: fadeInTimeline 0.8s forwards 0.5s; }
+        .timeline-item:nth-child(4) { animation: fadeInTimeline 0.8s forwards 0.7s; }
+        
+        @keyframes fadeInTimeline {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .timeline-content {
+            position: relative;
+            width: calc(50% - 40px);
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--accent-primary);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            left: calc(50% + 40px);
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 4px rgba(93, 63, 211, 0.2);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -50px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -50px;
+        }
+        
+        .timeline-content:hover::before {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 6px rgba(93, 63, 211, 0.3);
+        }
+        
+        .timeline-date {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 10px rgba(93, 63, 211, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover .timeline-date {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(93, 63, 211, 0.4);
+            background: var(--accent-secondary);
+        }
+        
+        .timeline-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover .timeline-title {
+            color: var(--accent-primary);
+        }
+        
+        .timeline-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            margin: 4rem 0;
+            padding: 3rem 0;
+            background: var(--bg-secondary);
+            border-radius: 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            padding: 2rem;
+        }
+        
+        .contact-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--accent-primary);
+            transition: width 0.5s ease;
+        }
+        
+        .contact-info:hover .contact-title::after {
+            width: 100%;
+        }
+        
+        .contact-text {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 10px;
+        }
+        
+        .contact-link:hover {
+            background: var(--bg-primary);
+            transform: translateX(10px);
+            color: var(--accent-primary);
+        }
+        
+        .contact-link i {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-link:hover i {
+            transform: scale(1.2);
+        }
+        
+        .contact-form {
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInForm 0.8s forwards 0.5s;
+        }
+        
+        @keyframes fadeInForm {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .contact-form:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--accent-primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(93, 63, 211, 0.1);
+        }
+        
+        .form-control::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-submit:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(93, 63, 211, 0.3);
+        }
+        
+        /* Animated Background Elements */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .animated-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            opacity: 0.05;
+            filter: blur(50px);
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation: floatCircle 15s ease-in-out infinite;
+        }
+        
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            bottom: 10%;
+            right: 10%;
+            background: var(--accent-tertiary);
+            animation: floatCircle 20s ease-in-out infinite reverse;
+        }
+        
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            background: var(--accent-secondary);
+            animation: floatCircle 12s ease-in-out infinite 2s;
+        }
+        
+        @keyframes floatCircle {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, 50px); }
+            50% { transform: translate(0, 100px); }
+            75% { transform: translate(-50px, 50px); }
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--header-gradient);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.05) 50%, transparent 52%);
+            background-size: 30px 30px;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 3rem 0;
+                border-radius: 0 0 30px 30px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .nav {
+                border-radius: 15px;
+                margin: -1.5rem 10px 2rem 10px;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image-container {
+                order: -1;
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-container::before {
+                left: 20px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                left: 60px !important;
+            }
+            
+            .timeline-content::before {
+                left: -40px !important;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-social {
+                justify-content: center;
+            }
+            
+            .theme-switch-wrapper {
+                bottom: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        /* Cursor Effects */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(93, 63, 211, 0.5);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: difference;
+            display: none;
+        }
+        
+        @media (min-width: 1024px) {
+            .custom-cursor {
+                display: block;
+            }
+            
+            .skill-card:hover ~ .custom-cursor,
+            .timeline-content:hover ~ .custom-cursor,
+            .contact-link:hover ~ .custom-cursor,
+            button:hover ~ .custom-cursor {
+                width: 40px;
+                height: 40px;
+                background: rgba(93, 63, 211, 0.3);
+            }
+        }
+        
+        /* Scroll Animations */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Neon Glow Effects */
+        .neon-glow {
+            text-shadow: 0 0 5px rgba(93, 63, 211, 0.5),
+                         0 0 10px rgba(93, 63, 211, 0.3),
+                         0 0 15px rgba(93, 63, 211, 0.1);
+        }
+        
+        /* Cyberpunk Grid Lines */
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(var(--accent-primary) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent-primary) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        /* Typing Animation */
+        .typing-animation {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--accent-primary);
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-primary) }
+        }
+        
+        /* Skill Progress Bars */
+        .skill-progress {
+            margin-top: 1rem;
+        }
+        
+        .progress-item {
+            margin-bottom: 1rem;
+        }
+        
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .progress-bar-container {
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+        
+        .progress-item.animate .progress-bar-fill {
+            animation: fillProgress 1.5s forwards;
+        }
+        
+        @keyframes fillProgress {
+            to { width: var(--progress-width); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <div class="custom-cursor"></div>
+    <div class="grid-lines"></div>
+    <div class="animated-bg">
+        <div class="animated-circle circle-1"></div>
+        <div class="animated-circle circle-2"></div>
+        <div class="animated-circle circle-3"></div>
+    </div>
+    <div class="theme-switch-wrapper">
+        <div class="theme-switch">
+            <i class="fas fa-moon"></i>
+        </div>
+    </div>
+
+    <script>
+        const { useState, useEffect, useRef } = React;
+
+        // Theme Context
+        const ThemeContext = React.createContext({
+            theme: 'light',
+            toggleTheme: () => {}
+        });
+
+        // Theme Provider Component
+        function ThemeProvider({ children }) {
+            const [theme, setTheme] = useState('light');
+            
+            const toggleTheme = () => {
+                const newTheme = theme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            };
+            
+            useEffect(() => {
+                // Check for saved theme preference
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    // Use system preference if no saved preference
+                    setTheme('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            }, []);
+            
+            return (
+                <ThemeContext.Provider value={{ theme, toggleTheme }}>
+                    {children}
+                </ThemeContext.Provider>
+            );
+        }
+
+        // Theme Switch Component
+        function ThemeSwitch() {
+            const { theme, toggleTheme } = React.useContext(ThemeContext);
+            const [rotate, setRotate] = useState(false);
+            
+            const handleClick = () => {
+                setRotate(true);
+                toggleTheme();
+                setTimeout(() => setRotate(false), 500);
+            };
+            
+            return React.createElement('div', {
+                className: 'theme-switch-wrapper',
+                onClick: handleClick
+            },
+                React.createElement('div', {
+                    className: `theme-switch ${rotate ? 'rotate' : ''}`
+                },
+                    React.createElement('i', {
+                        className: theme === 'light' ? 'fas fa-moon' : 'fas fa-sun'
+                    })
+                )
+            );
+        }
+
+        // About Page Component
+        function AboutPage() {
+            const [skillsVisible, setSkillsVisible] = useState(false);
+            
+            // Scroll animations
+            useEffect(() => {
+                const handleScroll = () => {
+                    // Fade in elements
+                    const elements = document.querySelectorAll('.fade-in-element');
+                    elements.forEach(element => {
+                        const elementTop = element.getBoundingClientRect().top;
+                        const elementVisible = 150;
+                        if (elementTop < window.innerHeight - elementVisible) {
+                            element.classList.add('visible');
+                        }
+                    });
+                    
+                    // Animate skill progress bars
+                    const skillsSection = document.querySelector('.skills-section');
+                    if (skillsSection) {
+                        const skillsSectionTop = skillsSection.getBoundingClientRect().top;
+                        if (skillsSectionTop < window.innerHeight - 150 && !skillsVisible) {
+                            setSkillsVisible(true);
+                            const progressItems = document.querySelectorAll('.progress-item');
+                            progressItems.forEach(item => {
+                                item.classList.add('animate');
+                            });
+                        }
+                    }
+                };
+                
+                window.addEventListener('scroll', handleScroll);
+                handleScroll(); // Check on initial load
+                
+                return () => {
+                    window.removeEventListener('scroll', handleScroll);
+                };
+            }, [skillsVisible]);
+
+            // Custom cursor effect
+            useEffect(() => {
+                const cursor = document.querySelector('.custom-cursor');
+                if (cursor) {
+                    const handleMouseMove = (e) => {
+                        cursor.style.left = `${e.clientX}px`;
+                        cursor.style.top = `${e.clientY}px`;
+                    };
+                    
+                    document.addEventListener('mousemove', handleMouseMove);
+                    
+                    return () => {
+                        document.removeEventListener('mousemove', handleMouseMove);
+                    };
+                }
+            }, []);
+
+            // Scroll event for navbar
+            useEffect(() => {
+                const handleScroll = () => {
+                    const nav = document.querySelector('.nav');
+                    if (nav) {
+                        if (window.scrollY > 100) {
+                            nav.classList.add('scrolled');
+                        } else {
+                            nav.classList.remove('scrolled');
+                        }
+                    }
+                };
+                
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return React.createElement(React.Fragment, null,
+                // Header
+                React.createElement('header', { className: 'header' },
+                    React.createElement('div', { className: 'header-decoration decoration-1' }),
+                    React.createElement('div', { className: 'header-decoration decoration-2' }),
+                    React.createElement('div', { className: 'header-decoration decoration-3' }),
+                    React.createElement('div', { className: 'header-decoration decoration-4' }),
+                    React.createElement('div', { className: 'header-decoration decoration-5' }),
+                    React.createElement('div', { className: 'header-decoration decoration-6' }),
+                    
+                    React.createElement('div', { className: 'container header-content' },
+                        React.createElement('h1', { className: 'neon-glow' }, "About Q0k0LaTes"),
+                        React.createElement('p', null, "Get to know Terrence Zhuoting Han and his journey in technology and development")
+                    )
+                ),
+                
+                // Navigation
+                React.createElement('nav', { className: 'nav' },
+                    React.createElement('div', { className: 'container nav-content' },
+                        React.createElement('a', { className: 'logo', href: 'index.html' },
+                            React.createElement('div', { className: 'logo-icon' }, 'Q'),
+                            'Q0k0LaTes'
+                        ),
+                        
+                        React.createElement('div', { className: 'nav-links' },
+                            React.createElement('a', { className: 'nav-link', href: 'index.html' }, 'Home'),
+                            React.createElement('a', { className: 'nav-link active', href: 'about.html' }, 'About'),
+                            React.createElement('a', { className: 'nav-link', href: '#' }, 'Archives'),
+                            React.createElement('a', { className: 'nav-link', href: '#contact' }, 'Contact')
+                        )
+                    )
+                ),
+                
+                // About Section
+                React.createElement('section', { className: 'about-section', id: 'about' },
+                    React.createElement('div', { className: 'container about-container' },
+                        React.createElement('div', { className: 'about-image-container fade-in-element' },
+                            React.createElement('img', { 
+                                className: 'about-image',
+                                src: 'https://via.placeholder.com/600x800/5D3FD3/FFFFFF?text=Q0k0LaTes',
+                                alt: 'Terrence Zhuoting Han'
+                            }),
+                            React.createElement('div', { className: 'about-image-overlay' })
+                        ),
+                        
+                        React.createElement('div', { className: 'about-content' },
+                            React.createElement('h2', { className: 'about-title' }, 
+                                React.createElement('span', { className: 'typing-animation' }, "Hello, I'm Terrence")
+                            ),
+                            React.createElement('p', { className: 'about-text' }, 
+                                "I'm ", 
+                                React.createElement('strong', null, "Terrence Zhuoting Han"), 
+                                ", also known as ", 
+                                React.createElement('strong', null, "Q0k0LaTes"), 
+                                ". I'm a passionate technologist and developer with a keen interest in creating innovative digital experiences."
+                            ),
+                            React.createElement('p', { className: 'about-text' }, 
+                                "My journey in technology began with a fascination for how things work in the digital world. Over the years, I've developed expertise in web development, focusing on creating responsive, user-friendly interfaces with modern technologies."
+                            ),
+                            React.createElement('p', { className: 'about-text' }, 
+                                "When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or writing about my discoveries on this blog."
+                            ),
+                            
+                            React.createElement('div', { className: 'skill-progress' },
+                                React.createElement('h3', { style: { marginBottom: '1rem', fontFamily: 'Orbitron, sans-serif' } }, "Core Skills"),
+                                
+                                React.createElement('div', { className: 'progress-item' },
+                                    React.createElement('div', { className: 'progress-title' },
+                                        React.createElement('span', null, "Frontend Development"),
+                                        React.createElement('span', null, "95%")
+                                    ),
+                                    React.createElement('div', { className: 'progress-bar-container' },
+                                        React.createElement('div', { 
+                                            className: 'progress-bar-fill',
+                                            style: { '--progress-width': '95%' }
+                                        })
+                                    )
+                                ),
+                                
+                                React.createElement('div', { className: 'progress-item' },
+                                    React.createElement('div', { className: 'progress-title' },
+                                        React.createElement('span', null, "Backend Development"),
+                                        React.createElement('span', null, "85%")
+                                    ),
+                                    React.createElement('div', { className: 'progress-bar-container' },
+                                        React.createElement('div', { 
+                                            className: 'progress-bar-fill',
+                                            style: { '--progress-width': '85%' }
+                                        })
+                                    )
+                                ),
+                                
+                                React.createElement('div', { className: 'progress-item' },
+                                    React.createElement('div', { className: 'progress-title' },
+                                        React.createElement('span', null, "UI/UX Design"),
+                                        React.createElement('span', null, "80%")
+                                    ),
+                                    React.createElement('div', { className: 'progress-bar-container' },
+                                        React.createElement('div', { 
+                                            className: 'progress-bar-fill',
+                                            style: { '--progress-width': '80%' }
+                                        })
+                                    )
+                                ),
+                                
+                                React.createElement('div', { className: 'progress-item' },
+                                    React.createElement('div', { className: 'progress-title' },
+                                        React.createElement('span', null, "Database Management"),
+                                        React.createElement('span', null, "90%")
+                                    ),
+                                    React.createElement('div', { className: 'progress-bar-container' },
+                                        React.createElement('div', { 
+                                            className: 'progress-bar-fill',
+                                            style: { '--progress-width': '90%' }
+                                        })
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                
+                // Skills Section
+                React.createElement('section', { className: 'skills-section' },
+                    React.createElement('div', { className: 'container' },
+                        React.createElement('h2', { className: 'section-title' }, "My Expertise"),
+                        
+                        React.createElement('div', { className: 'skills-container' },
+                            React.createElement('div', { className: 'skill-card' },
+                                React.createElement('div', { className: 'skill-icon' },
+                                    React.createElement('i', { className: 'fas fa-code' })
+                                ),
+                                React.createElement('h3', { className: 'skill-title' }, "Web Development"),
+                                React.createElement('p', { className: 'skill-description' }, 
+                                    "Building responsive, modern websites using the latest technologies and frameworks. Specializing in React, Node.js, and MongoDB."
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'skill-card' },
+                                React.createElement('div', { className: 'skill-icon' },
+                                    React.createElement('i', { className: 'fas fa-mobile-alt' })
+                                ),
+                                React.createElement('h3', { className: 'skill-title' }, "Mobile Development"),
+                                React.createElement('p', { className: 'skill-description' }, 
+                                    "Creating cross-platform mobile applications with React Native and Flutter. Focused on performance and user experience."
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'skill-card' },
+                                React.createElement('div', { className: 'skill-icon' },
+                                    React.createElement('i', { className: 'fas fa-database' })
+                                ),
+                                React.createElement('h3', { className: 'skill-title' }, "Database Design"),
+                                React.createElement('p', { className: 'skill-description' }, 
+                                    "Designing and implementing efficient database structures. Experience with SQL and NoSQL databases, including MongoDB, PostgreSQL, and MySQL."
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'skill-card' },
+                                React.createElement('div', { className: 'skill-icon' },
+                                    React.createElement('i', { className: 'fas fa-paint-brush' })
+                                ),
+                                React.createElement('h3', { className: 'skill-title' }, "UI/UX Design"),
+                                React.createElement('p', { className: 'skill-description' }, 
+                                    "Creating intuitive and visually appealing user interfaces. Proficient in design tools and principles for optimal user experience."
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'skill-card' },
+                                React.createElement('div', { className: 'skill-icon' },
+                                    React.createElement('i', { className: 'fas fa-cloud' })
+                                ),
+                                React.createElement('h3', { className: 'skill-title' }, "Cloud Services"),
+                                React.createElement('p', { className: 'skill-description' }, 
+                                    "Deploying and managing applications on cloud platforms. Experience with AWS, Google Cloud, and Azure services."
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'skill-card' },
+                                React.createElement('div', { className: 'skill-icon' },
+                                    React.createElement('i', { className: 'fas fa-robot' })
+                                ),
+                                React.createElement('h3', { className: 'skill-title' }, "AI Integration"),
+                                React.createElement('p', { className: 'skill-description' }, 
+                                    "Implementing AI and machine learning solutions in applications. Working with natural language processing and computer vision."
+                                )
+                            )
+                        )
+                    )
+                ),
+                
+                // Timeline Section
+                React.createElement('section', { className: 'timeline-section' },
+                    React.createElement('div', { className: 'container' },
+                        React.createElement('h2', { className: 'section-title' }, "My Journey"),
+                        
+                        React.createElement('div', { className: 'timeline-container' },
+                            React.createElement('div', { className: 'timeline-item' },
+                                React.createElement('div', { className: 'timeline-content' },
+                                    React.createElement('div', { className: 'timeline-date' }, "2022 - Present"),
+                                    React.createElement('h3', { className: 'timeline-title' }, "Senior Developer"),
+                                    React.createElement('p', { className: 'timeline-description' }, 
+                                        "Leading development teams and architecting complex web applications. Implementing cutting-edge technologies and mentoring junior developers."
+                                    )
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'timeline-item' },
+                                React.createElement('div', { className: 'timeline-content' },
+                                    React.createElement('div', { className: 'timeline-date' }, "2019 - 2022"),
+                                    React.createElement('h3', { className: 'timeline-title' }, "Full Stack Developer"),
+                                    React.createElement('p', { className: 'timeline-description' }, 
+                                        "Developed and maintained web applications using React, Node.js, and MongoDB. Collaborated with design and product teams to deliver high-quality software."
+                                    )
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'timeline-item' },
+                                React.createElement('div', { className: 'timeline-content' },
+                                    React.createElement('div', { className: 'timeline-date' }, "2017 - 2019"),
+                                    React.createElement('h3', { className: 'timeline-title' }, "Frontend Developer"),
+                                    React.createElement('p', { className: 'timeline-description' }, 
+                                        "Created responsive user interfaces and implemented frontend functionality. Worked with JavaScript frameworks and CSS preprocessors."
+                                    )
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'timeline-item' },
+                                React.createElement('div', { className: 'timeline-content' },
+                                    React.createElement('div', { className: 'timeline-date' }, "2015 - 2017"),
+                                    React.createElement('h3', { className: 'timeline-title' }, "Computer Science Degree"),
+                                    React.createElement('p', { className: 'timeline-description' }, 
+                                        "Studied computer science with a focus on software engineering and web technologies. Participated in hackathons and coding competitions."
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                
+                // Contact Section
+                React.createElement('section', { className: 'contact-section', id: 'contact' },
+                    React.createElement('div', { className: 'container' },
+                        React.createElement('h2', { className: 'section-title' }, "Get In Touch"),
+                        
+                        React.createElement('div', { className: 'contact-container' },
+                            React.createElement('div', { className: 'contact-info' },
+                                React.createElement('h3', { className: 'contact-title' }, "Let's Connect"),
+                                React.createElement('p', { className: 'contact-text' }, 
+                                    "Have a question or want to work together? Feel free to reach out through any of the channels below. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision."
+                                ),
+                                
+                                React.createElement('div', { className: 'contact-links' },
+                                    React.createElement('a', { className: 'contact-link', href: 'mailto:contact@q0k0lates.com' },
+                                        React.createElement('i', { className: 'fas fa-envelope' }),
+                                        "contact@q0k0lates.com"
+                                    ),
+                                    React.createElement('a', { className: 'contact-link', href: '#' },
+                                        React.createElement('i', { className: 'fas fa-map-marker-alt' }),
+                                        "San Francisco, CA"
+                                    ),
+                                    React.createElement('a', { className: 'contact-link', href: 'https://github.com/q0k0lates', target: '_blank' },
+                                        React.createElement('i', { className: 'fab fa-github' }),
+                                        "github.com/q0k0lates"
+                                    ),
+                                    React.createElement('a', { className: 'contact-link', href: 'https://linkedin.com/in/q0k0lates', target: '_blank' },
+                                        React.createElement('i', { className: 'fab fa-linkedin' }),
+                                        "linkedin.com/in/q0k0lates"
+                                    ),
+                                    React.createElement('a', { className: 'contact-link', href: 'https://twitter.com/q0k0lates', target: '_blank' },
+                                        React.createElement('i', { className: 'fab fa-twitter' }),
+                                        "twitter.com/q0k0lates"
+                                    )
+                                )
+                            ),
+                            
+                            React.createElement('div', { className: 'contact-form' },
+                                React.createElement('form', { 
+                                    onSubmit: (e) => {
+                                        e.preventDefault();
+                                        alert('Message sent! I will get back to you soon.');
+                                        e.target.reset();
+                                    }
+                                },
+                                    React.createElement('div', { className: 'form-group' },
+                                        React.createElement('label', { className: 'form-label' }, "Your Name"),
+                                        React.createElement('input', {
+                                            type: 'text',
+                                            className: 'form-control',
+                                            placeholder: 'Enter your name',
+                                            required: true
+                                        })
+                                    ),
+                                    
+                                    React.createElement('div', { className: 'form-group' },
+                                        React.createElement('label', { className: 'form-label' }, "Your Email"),
+                                        React.createElement('input', {
+                                            type: 'email',
+                                            className: 'form-control',
+                                            placeholder: 'Enter your email',
+                                            required: true
+                                        })
+                                    ),
+                                    
+                                    React.createElement('div', { className: 'form-group' },
+                                        React.createElement('label', { className: 'form-label' }, "Subject"),
+                                        React.createElement('input', {
+                                            type: 'text',
+                                            className: 'form-control',
+                                            placeholder: 'Enter subject',
+                                            required: true
+                                        })
+                                    ),
+                                    
+                                    React.createElement('div', { className: 'form-group' },
+                                        React.createElement('label', { className: 'form-label' }, "Your Message"),
+                                        React.createElement('textarea', {
+                                            className: 'form-control',
+                                            placeholder: 'Enter your message',
+                                            required: true
+                                        })
+                                    ),
+                                    
+                                    React.createElement('button', {
+                                        type: 'submit',
+                                        className: 'btn-submit'
+                                    },
+                                        React.createElement('i', { className: 'fas fa-paper-plane' }),
+                                        'Send Message'
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                
+                // Footer
+                React.createElement('footer', { className: 'footer' },
+                    React.createElement('div', { className: 'container footer-content' },
+                        React.createElement('div', { className: 'footer-section' },
+                            React.createElement('h3', null, 'About'),
+                            React.createElement('p', { style: { marginBottom: '1rem', opacity: 0.8 } }, 
+                                "Q0k0LaTes Blog is a personal tech blog by Terrence Zhuoting Han, focused on sharing knowledge and insights about web development, design, and technology."
+                            ),
+                            React.createElement('div', { className: 'footer-social' },
+                                React.createElement('a', { className: 'social-icon', href: '#' },
+                                    React.createElement('i', { className: 'fab fa-twitter' })
+                                ),
+                                React.createElement('a', { className: 'social-icon', href: '#' },
+                                    React.createElement('i', { className: 'fab fa-github' })
+                                ),
+                                React.createElement('a', { className: 'social-icon', href: '#' },
+                                    React.createElement('i', { className: 'fab fa-linkedin' })
+                                ),
+                                React.createElement('a', { className: 'social-icon', href: '#' },
+                                    React.createElement('i', { className: 'fab fa-instagram' })
+                                )
+                            )
+                        ),
+                        React.createElement('div', { className: 'footer-section' },
+                            React.createElement('h3', null, 'Quick Links'),
+                            React.createElement('ul', { className: 'footer-links' },
+                                React.createElement('li', null,
+                                    React.createElement('a', { href: 'index.html' }, 'Home')
+                                ),
+                                React.createElement('li', null,
+                                    React.createElement('a', { href: 'about.html' }, 'About Me')
+                                ),
+                                React.createElement('li', null,
+                                    React.createElement('a', { href: '#' }, 'Archives')
+                                ),
+                                React.createElement('li', null,
+                                    React.createElement('a', { href: '#' }, 'Privacy Policy')
+                                ),
+                                React.createElement('li', null,
+                                    React.createElement('a', { href: '#contact' }, 'Contact')
+                                )
+                            )
+                        ),
+                        React.createElement('div', { className: 'footer-section' },
+                            React.createElement('h3', null, 'Newsletter'),
+                            React.createElement('p', { style: { marginBottom: '1rem', opacity: 0.8 } }, 
+                                "Subscribe to my newsletter to receive updates on the latest articles and tech news."
+                            ),
+                            React.createElement('div', { className: 'newsletter-form', style: { display: 'flex', gap: '0.5rem' } },
+                                React.createElement('input', {
+                                    type: 'email',
+                                    placeholder: 'Your email',
+                                    style: {
+                                        flex: 1,
+                                        padding: '0.8rem 1rem',
+                                        border: 'none',
+                                        borderRadius: '10px',
+                                        fontSize: '0.9rem',
+                                        outline: 'none',
+                                        background: 'rgba(255,255,255,0.2)',
+                                        color: 'white'
+                                    }
+                                }),
+                                React.createElement('button', {
+                                    style: {
+                                        background: 'white',
+                                        color: 'var(--accent-primary)',
+                                        border: 'none',
+                                        padding: '0.8rem 1rem',
+                                        borderRadius: '10px',
+                                        fontWeight: 'bold',
+                                        cursor: 'pointer'
+                                    }
+                                }, 'Join')
+                            )
+                        )
+                    ),
+                    React.createElement('div', { className: 'footer-bottom container' },
+                        React.createElement('p', null, 
+                            '© 2025 Q0k0LaTes Blog. All rights reserved. Created by Terrence Zhuoting Han.'
+                        )
+                    )
+                )
+            );
+        }
+
+        // Render the App
+        ReactDOM.render(
+            React.createElement(ThemeProvider, null,
+                React.createElement(AboutPage)
+            ),
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>

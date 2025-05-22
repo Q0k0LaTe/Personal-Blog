@@ -8,13 +8,20 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.0",
-    "cors": "^2.8.5"
+    "mongoose": "^8.15.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.0"
   },
-  "keywords": ["blog", "nodejs", "react", "express", "web-development"],
+  "keywords": [
+    "blog",
+    "nodejs",
+    "react",
+    "express",
+    "web-development"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "engines": {
