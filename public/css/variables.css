@@ -1,84 +1,81 @@
-/* CSS Variables - variables.css */
+/* Classic Newspaper Variables - variables.css */
 :root {
-    /* Light Theme Variables */
-    --bg-primary: #fefefe;
-    --bg-secondary: #f8f8f8;
-    --bg-tertiary: #f0f0f0;
-    --text-primary: #1a1a1a;
-    --text-secondary: #4a4a4a;
-    --text-muted: #888888;
-    --accent-primary: #d32f2f;
-    --accent-secondary: #b71c1c;
-    --accent-light: #ffebee;
-    --border-color: #e0e0e0;
-    --border-dark: #bdbdbd;
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.15);
-    --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.2);
-    --divider-color: #e8e8e8;
-    --link-color: #1976d2;
-    --link-hover: #0d47a1;
-    --success-color: #388e3c;
-    --warning-color: #f57c00;
-    --error-color: #d32f2f;
+    /* Classic Newspaper Colors */
+    --bg-primary: #f7f0d4;           /* Aged newspaper yellow */
+    --bg-secondary: #f2ebc1;         /* Slightly darker yellow */
+    --bg-tertiary: #ede6af;          /* Even darker yellow */
+    --text-primary: #1a1a1a;         /* Deep black for text */
+    --text-secondary: #333333;       /* Dark gray */
+    --text-muted: #666666;           /* Medium gray */
+    --accent-primary: #8b0000;       /* Classic newspaper red */
+    --accent-secondary: #660000;     /* Darker red */
+    --accent-light: #ffeeee;         /* Light red background */
+    --border-color: #d4c79a;         /* Brownish border */
+    --border-dark: #b8a882;          /* Darker brown border */
+    --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --shadow-medium: 0 2px 6px rgba(0, 0, 0, 0.3);
+    --shadow-heavy: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --divider-color: #c9bc8f;        /* Section dividers */
+    --link-color: #8b0000;           /* Red links */
+    --link-hover: #660000;           /* Darker red on hover */
+    --success-color: #2d5a2d;        /* Dark green */
+    --warning-color: #8b4513;        /* Brown */
+    --error-color: #8b0000;          /* Red */
     
-    /* Typography */
-    --font-headline: 'Playfair Display', serif;
-    --font-body: 'Crimson Text', serif;
-    --font-sans: 'Open Sans', sans-serif;
-    --font-mono: 'Monaco', 'Menlo', monospace;
+    /* Classic Typography */
+    --font-headline: 'Times New Roman', 'Times', serif;
+    --font-body: 'Times New Roman', 'Times', serif;
+    --font-sans: 'Arial', 'Helvetica', sans-serif;
+    --font-mono: 'Courier New', 'Courier', monospace;
     
     /* Font Sizes */
-    --text-xs: 0.75rem;
-    --text-sm: 0.875rem;
-    --text-base: 1rem;
-    --text-lg: 1.125rem;
-    --text-xl: 1.25rem;
-    --text-2xl: 1.5rem;
-    --text-3xl: 1.875rem;
-    --text-4xl: 2.25rem;
-    --text-5xl: 3rem;
-    --text-6xl: 3.75rem;
+    --text-xs: 0.7rem;
+    --text-sm: 0.8rem;
+    --text-base: 0.9rem;
+    --text-lg: 1rem;
+    --text-xl: 1.2rem;
+    --text-2xl: 1.4rem;
+    --text-3xl: 1.8rem;
+    --text-4xl: 2.2rem;
+    --text-5xl: 2.8rem;
+    --text-6xl: 3.5rem;
     
     /* Spacing */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    --space-2xl: 3rem;
-    --space-3xl: 4rem;
+    --space-xs: 0.2rem;
+    --space-sm: 0.4rem;
+    --space-md: 0.8rem;
+    --space-lg: 1.2rem;
+    --space-xl: 1.6rem;
+    --space-2xl: 2.4rem;
+    --space-3xl: 3.2rem;
     
     /* Layout */
-    --container-max: 1200px;
-    --container-padding: 2rem;
-    --column-gap: 2rem;
-    --border-radius: 4px;
-    --border-radius-lg: 8px;
+    --container-max: 1000px;
+    --container-padding: 1.5rem;
+    --column-gap: 1.5rem;
+    --border-radius: 0px;
+    --border-radius-lg: 0px;
     
     /* Transitions */
-    --transition-fast: 0.15s ease;
-    --transition-normal: 0.3s ease;
-    --transition-slow: 0.5s ease;
+    --transition-fast: 0.1s ease;
+    --transition-normal: 0.2s ease;
+    --transition-slow: 0.3s ease;
 }
 
+/* Dark theme for classic newspaper (evening edition) */
 [data-theme="dark"] {
-    /* Dark Theme Variables */
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2a2a2a;
-    --bg-tertiary: #3a3a3a;
-    --text-primary: #f5f5f5;
-    --text-secondary: #cccccc;
-    --text-muted: #999999;
-    --accent-primary: #ff5252;
-    --accent-secondary: #ff1744;
-    --accent-light: #3a1a1a;
-    --border-color: #404040;
-    --border-dark: #606060;
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.4);
-    --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.5);
-    --divider-color: #404040;
-    --link-color: #64b5f6;
-    --link-hover: #2196f3;
+    --bg-primary: #2a2520;
+    --bg-secondary: #1f1d19;
+    --bg-tertiary: #141311;
+    --text-primary: #f7f0d4;
+    --text-secondary: #d4c79a;
+    --text-muted: #b8a882;
+    --accent-primary: #cc4444;
+    --accent-secondary: #aa3333;
+    --accent-light: #442222;
+    --border-color: #3a3530;
+    --border-dark: #4a453f;
+    --divider-color: #3a3530;
+    --link-color: #cc4444;
+    --link-hover: #ee5555;
 }

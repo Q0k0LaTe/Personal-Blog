@@ -1,4 +1,4 @@
-/* Base Styles - base.css */
+/* Classic Newspaper Base Styles - base.css */
 * {
     margin: 0;
     padding: 0;
@@ -12,33 +12,52 @@ html {
 body {
     font-family: var(--font-body);
     font-size: var(--text-base);
-    line-height: 1.6;
+    line-height: 1.5;
     color: var(--text-primary);
     background-color: var(--bg-primary);
+    background-image: 
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+    background-size: 20px 20px;
     transition: background-color var(--transition-normal), color var(--transition-normal);
     overflow-x: hidden;
+}
+
+/* Classic newspaper texture */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(45deg, transparent 40%, rgba(0,0,0,0.02) 50%, transparent 60%),
+        linear-gradient(-45deg, transparent 40%, rgba(0,0,0,0.02) 50%, transparent 60%);
+    background-size: 30px 30px;
+    pointer-events: none;
+    z-index: -1;
 }
 
 /* Selection */
 ::selection {
     background-color: var(--accent-primary);
-    color: white;
+    color: var(--bg-primary);
 }
 
 ::-moz-selection {
     background-color: var(--accent-primary);
-    color: white;
+    color: var(--bg-primary);
 }
 
 /* Focus */
 :focus {
     outline: 2px solid var(--accent-primary);
-    outline-offset: 2px;
+    outline-offset: 1px;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -47,7 +66,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: var(--border-dark);
-    border-radius: 4px;
+    border: 2px solid var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -59,12 +78,13 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
+    border: 1px solid var(--border-color);
 }
 
 /* Links */
 a {
     color: var(--link-color);
-    text-decoration: none;
+    text-decoration: underline;
     transition: color var(--transition-fast);
 }
 
@@ -81,9 +101,14 @@ ul, ol {
 button {
     font-family: inherit;
     cursor: pointer;
-    border: none;
-    background: none;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
     transition: all var(--transition-fast);
+}
+
+button:hover {
+    background: var(--bg-tertiary);
 }
 
 /* Form Elements */
@@ -95,70 +120,62 @@ input, textarea, select {
     padding: var(--space-sm) var(--space-md);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: border-color var(--transition-fast);
 }
 
 input:focus, textarea:focus, select:focus {
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.1);
     outline: none;
 }
 
-/* Utility Classes */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+/* Classic newspaper dividers */
+.section-divider {
+    height: 2px;
+    background: var(--border-dark);
+    margin: var(--space-xl) 0;
+    position: relative;
 }
 
-.visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
+.section-divider::before,
+.section-divider::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    width: 50px;
+    height: 6px;
+    background: var(--accent-primary);
+}
+
+.section-divider::before {
+    left: 0;
+}
+
+.section-divider::after {
+    right: 0;
+}
+
+/* Ornamental elements */
+.ornament {
+    text-align: center;
+    font-size: var(--text-lg);
+    color: var(--accent-primary);
+    margin: var(--space-lg) 0;
+}
+
+/* Print-style borders */
+.border-decorative {
+    border: 3px double var(--border-dark);
+    padding: var(--space-lg);
 }
 
 /* Animation Classes */
 .fade-in {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
-}
-
-.slide-in-left {
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.slide-in-left.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.slide-in-right {
-    opacity: 0;
-    transform: translateX(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.slide-in-right.visible {
-    opacity: 1;
-    transform: translateX(0);
 }
